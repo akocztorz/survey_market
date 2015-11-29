@@ -50,30 +50,23 @@ class PollDefinitionController extends Controller
                 ->getQuery();
             $entities= $query->getResult();
 
-            $html = $this->container->get('templating')->render(
-                'pollDefinition/index.html.twig',
-                [
-                    'pollDefinitionList' => $entities,
-                    'name' => $name,
-                    'form' => $form->createView(),
-                ]
-            );
 
         }
         else{
             $em = $this->getDoctrine()->getManager();
             $entities = $em->getRepository('AkPollBundle:PollDefinition')->findAll();
 
-            $html = $this->container->get('templating')->render(
-                'pollDefinition/index.html.twig',
-                [
-                    'pollDefinitionList' => $entities,
-                    'name' => $name,
-                    'form' => $form->createView(),
-                ]
-            );
         }
 
+
+        $html = $this->container->get('templating')->render(
+            'pollDefinition/index.html.twig',
+            [
+                'pollDefinitionList' => $entities,
+                'name' => $name,
+                'form' => $form->createView(),
+            ]
+        );
 
         return new Response(
             $html

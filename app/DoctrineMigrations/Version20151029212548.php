@@ -18,7 +18,6 @@ class Version20151029212548 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE type');
         $this->addSql('ALTER TABLE question_definition DROP FOREIGN KEY FK_FE4B0502D491D6E');
         $this->addSql('DROP INDEX IDX_FE4B0502D491D6E ON question_definition');
         $this->addSql('ALTER TABLE question_definition ADD definitionType VARCHAR(255) NOT NULL, DROP poll_definition_id, CHANGE question question LONGTEXT NOT NULL');
@@ -43,8 +42,6 @@ class Version20151029212548 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE type (id INT AUTO_INCREMENT NOT NULL, question_definition_id INT DEFAULT NULL, type VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, INDEX IDX_8CDE5729495F6356 (question_definition_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE type ADD CONSTRAINT FK_8CDE5729495F6356 FOREIGN KEY (question_definition_id) REFERENCES question_definition (id)');
         $this->addSql('ALTER TABLE answer ADD poll_id INT DEFAULT NULL, ADD option_definition_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE answer ADD CONSTRAINT FK_DADD4A253C947C0F FOREIGN KEY (poll_id) REFERENCES poll (id)');
         $this->addSql('ALTER TABLE answer ADD CONSTRAINT FK_DADD4A2543000DC9 FOREIGN KEY (option_definition_id) REFERENCES option_definition (id)');

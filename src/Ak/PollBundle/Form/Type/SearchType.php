@@ -38,18 +38,18 @@ class SearchType extends AbstractType
      */
     public function getName()
     {
-        return 'pollDefinition';
+        return 'search';
     }
-
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ak\PollBundle\Entity\PollDefinition',
-        ));
-    }
+//
+//    /**
+//     * @param OptionsResolver $resolver
+//     */
+//    public function configureOptions(OptionsResolver $resolver)
+//    {
+//        $resolver->setDefaults(array(
+//            'data_class' => 'Ak\PollBundle\Entity\PollDefinition',
+//        ));
+//    }
 
 
 }
