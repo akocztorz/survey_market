@@ -1,0 +1,19 @@
+{% extends 'page.html.twig' %}
+
+{% block contents %}
+    <h1></h1>
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <th>ID</th>
+            <th>Pytanie</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>{{ questionDefinition.id }}</td>
+            <td>{{ questionDefinition.question }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id }) }}" role="button">Powrót</a>
+{% endblock %}

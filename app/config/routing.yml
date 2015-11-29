@@ -1,0 +1,8 @@
+ak_poll:
+    resource: "@AkPollBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

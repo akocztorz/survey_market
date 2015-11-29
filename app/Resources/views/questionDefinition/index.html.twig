@@ -1,0 +1,38 @@
+{% extends 'page.html.twig' %}
+
+{% block contents %}
+    <h1>Definicje Pytań dla ankiety : {{ pollDefinition.name }}</h1>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <th>Pytanie</th>
+                <th>Typ pytania</th>
+                <th></th>
+            </tr>
+            {% for questionDefinition in questionDefinitionList %}
+                <tr>
+                    <td>{{ questionDefinition.id }}</td>
+                    <td>{{ questionDefinition.question }}</td>
+                    <td>{{ questionDefinition|questionDefinitionType }}</td>
+                    <td>
+                        <a class="btn btn-default" href="{{ path('questionDefinition_show', {'pollDefinition': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Wyświetl</a>
+                        <a class="btn btn-default" href="{{ path('questionDefinition_edit', {'pollDefinition': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Edytuj</a>
+                        {% if(questionDefinition|hasEditableOptions) %}
+                            <a class="btn btn-default" href="{{ path('optionDefinition', {'questionDefinition': questionDefinition.id }) }}" role="button">Przejdź do mozliwych odpowiedzi</a>
+                        {% endif %}
+                        <button class="btn btn-default" type="submit">Usuń</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Dodaj pytanie:</h2>
+    <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'open'}) }}" role="button">otwarte</a>
+    <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'single_choice'}) }}" role="button">jednokrotnego wyboru</a>
+    <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'multiple_choice'}) }}" role="button">wielokrotnego wyboru</a>
+    <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'restricted_choice'}) }}" role="button">wielokrotnego wyboru z ograniczoną liczbą odpowiedzi</a>
+    <h2></h2>
+    <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Powrót</a>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'page.html.twig' %}
+
+{% block contents %}
+
+    <h1>Definicje Ankiet</h1>
+    {{ form(form) }}
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <th>Nazwa</th>
+                {#<th>Ilość ofert</th>#}
+                <th></th>
+            </tr>
+            {% for pollDefinition in pollDefinitionList %}
+                <tr>
+                    <td>{{ pollDefinition.id }}</td>
+                    <td>{{ pollDefinition.name }}</td>
+                    <td>
+                        <a class="btn btn-default" href="{{ path('pollDefinition_show', {'id': pollDefinition.id}) }}" role="button">Wyświetl</a>
+                        <a class="btn btn-default" href="{{ path('pollDefinition_edit', {'id': pollDefinition.id}) }}" role="button">Edytuj</a>
+                        <a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do pytań</a>
+                        <button class="btn btn-default" type="submit">Usuń</button>
+                        <a class="btn btn-default" href="{{ path('show_for_pollDefinition_offer', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do ofert</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-default" href="{{ path('pollDefinition_create') }}" role="button">Dodaj</a>
+
+{% endblock %}

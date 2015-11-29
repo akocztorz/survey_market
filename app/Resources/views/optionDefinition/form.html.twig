@@ -1,0 +1,6 @@
+{% extends 'page.html.twig' %}
+
+{% block contents %}
+    {{ form(form) }}
+    <a class="btn btn-default" href="{{ path('optionDefinition', {'questionDefinition': form.vars.data.questionDefinition.id}) }}" role="button">Powrót</a>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'page.html.twig' %}
+
+{% block contents %}
+    {% if (questionDefinition|hasEditableOptions) %}
+        <h1>Odpowiedzi na pytanie : {{ questionDefinition.question }}</h1>
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <th>ID</th>
+                <th>Odpowiedź</th>
+                <th></th>
+            </tr>
+            {% for optionDefinition in optionDefinitionList %}
+                    <tr>
+                        <td>{{ optionDefinition.id }}</td>
+                        <td>{{ optionDefinition.response }}</td>
+                        <td>
+                            <a class="btn btn-default" href="{{ path('optionDefinition_show', {'questionDefinition': questionDefinition.id, 'id' : optionDefinition.id, 'questionDefinitionType' : questionDefinition|questionDefinitionType}) }}" role="button">Wyświetl</a>
+                            <a class="btn btn-default" href="{{ path('optionDefinition_edit', {'questionDefinition': questionDefinition.id, 'id' : optionDefinition.id, 'questionDefinitionType' : questionDefinition|questionDefinitionType }) }}" role="button">Edytuj</a>
+                            {#<button class="btn btn-default" type="submit">Usuń</button>#}
+                        </td>
+                    </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+        <a class="btn btn-default" href="{{ path('optionDefinition_create' , {'questionDefinition' : questionDefinition.id})}}" role="button">Dodaj</a>
+    {% else %}
+        <h1>Wybrane pytanie jest pytaniem otwartym i nie posiada predefiniowanych odpowiedzi</h1>
+    {% endif %}
+    <a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id }) }}" role="button">Powrót</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'page.html.twig' %}
+
+{% block contents %}
+    {% if changeType == 'edited' %}
+        <h1> Rekord został zmieniony </h1>
+        <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Powrót</a>
+        <a class="btn btn-default" href="{{ path('pollDefinition_show', {'id': id} )  }}" role="button">Wyświetl</a>
+    {% elseif changeType == 'created' %}
+        <h1> Dodano nową definicję ankiety </h1>
+        <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Powrót</a>
+        <a class="btn btn-default" href="{{ path('pollDefinition_show', {'id': id} )  }}" role="button">Wyświetl</a>
+    {% endif %}
+{% endblock %}

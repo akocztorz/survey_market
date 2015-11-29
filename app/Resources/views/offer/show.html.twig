@@ -1,0 +1,34 @@
+
+{% extends 'page.html.twig' %}
+
+
+{% block contents %}
+    <h1></h1>
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+            <th>Definicja Ankiety</th>
+            <th>Ilość Ankiet Do Wykonania</th>
+            <th>Cena jednostkowa</th>
+            <th>Minimalna Akceptowana Ilość</th>
+            <th>Stworzono</th>
+            <th>Zmodyfikowano</th>
+            <th>Data Realizacji</th>
+        </tr>
+        <tr>
+            <td>{{ offer.id }}</td>
+            <td>{{ offer.offerName }}</td>
+            <td>{{ offer.pollDefinition.name }}</td>
+            <td>{{ offer.quantity}}</td>
+            <td>{{ offer.price }}</td>
+            <td>{{ offer.minQuantity}}</td>
+            <td>{{ offer.created|date('Y-m-d H:i') }}</td>
+            <td>{{ offer.updated|date('Y-m-d H:i') }}</td>
+            <td>{{ offer.dueDate|date('Y-m-d H:i')  }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-default" href="{{ path('offer') }}" role="button">Powrót</a>
+{% endblock%}
