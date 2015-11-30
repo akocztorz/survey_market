@@ -33,32 +33,27 @@ class PollDefinitionController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $name = null;
-        $form = $this->createForm(new SearchType(), $name, array(
+        $form = $this->createForm(new SearchType(), null, array(
             'method' => 'POST',
         ));
 
         $form->handleRequest($request);
 
+        $name = "";
+        $repository = $this->getDoctrine()->getRepository('AkPollBundle:PollDefinition');
+        $queryBuilder = $repository->createQueryBuilder('pd');
 
-        if ($form->isValid()) {
-            $repository = $this->getDoctrine()->getRepository('AkPollBundle:PollDefinition');
-            $name=$name.'%';
-            $query = $repository->createQueryBuilder('pd')
-                ->where(('pd.name like :name'))
-                ->setParameter('name', $name)
-                ->getQuery();
-            $entities= $query->getResult();
-
-
-        }
-        else{
-            $em = $this->getDoctrine()->getManager();
-            $entities = $em->getRepository('AkPollBundle:PollDefinition')->findAll();
-
+        if ($form->isValid() && $form->isSubmitted()) {
+            $formData = $form->getData();
+            $name = '%' . $formData["name"] . '%';
+            if (!empty($name)) {
+                $queryBuilder
+                    ->where(('pd.name like :name'))
+                    ->setParameter('name', $name);
+            }
         }
 
-
+        $entities= $queryBuilder->getQuery()->getResult();
         $html = $this->container->get('templating')->render(
             'pollDefinition/index.html.twig',
             [

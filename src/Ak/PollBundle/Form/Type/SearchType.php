@@ -38,7 +38,7 @@ class SearchType extends AbstractType
      */
     public function getName()
     {
-        return 'search';
+        return 'search5';
     }
 //
 //    /**
