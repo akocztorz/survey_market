@@ -1,0 +1,29 @@
+{% extends 'page.html.twig' %}
+
+{% block contents %}
+    <h1>Wypełnione Ankiety dla Definicji : {{ pollDefinition.name }}</h1>
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <th>ID</th>
+            <th>Utworzono</th>
+            <th>Zmodyfikowano</th>
+            <th></th>
+        </tr>
+        {% for poll in pollList %}
+            <tr>
+                <td>{{ poll.id }}</td>
+                <td>{{ poll.created|date('Y-m-d H:i') }}</td>
+                <td>{{ poll.updated|date('Y-m-d H:i') }}</td>
+                <td>
+                    {#<a class="btn btn-default" href="{{ path('answer', {'poll': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Wyświetl</a>#}
+                    {#<a class="btn btn-default" href="{{ path('questionDefinition_edit', {'pollDefinition': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Edytuj</a>#}
+                    {#<button class="btn btn-default" type="submit">Usuń</button>#}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-default" href="{{ path('poll_create', {'pollDefinition':pollDefinition.id}) }}" role="button">Dodaj</a>
+    <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Powrót</a>
+{% endblock %}

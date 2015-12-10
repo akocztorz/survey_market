@@ -4,6 +4,7 @@ namespace Ak\PollBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * QuestionDefinition
@@ -12,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Ak\PollBundle\Entity\QuestionDefinitionRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="definition_type", type="string")
+ * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
  * @ORM\DiscriminatorMap({
  *   "open" = "QuestionDefinitionOpen",
  *   "single_choice" = "QuestionDefinitionSingleChoice",
@@ -32,6 +34,14 @@ abstract class QuestionDefinition
     protected $id;
 
     /**
+     * @var integer
+     *
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="position", type="integer")
+     */
+    protected $position;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="question", type="text")
@@ -43,6 +53,7 @@ abstract class QuestionDefinition
      *
      * @ORM\ManyToOne(targetEntity="PollDefinition", inversedBy="questionsDefinitions")
      * @ORM\JoinColumn(name="poll_definition_id", referencedColumnName="id")
+     * @Gedmo\SortableGroup
      */
     protected $pollDefinition;
 
@@ -101,6 +112,23 @@ abstract class QuestionDefinition
      * @return ArrayCollection
      */
     abstract public function getOptionDefinitions();
+
+    /**
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    }
+
 
 }
 

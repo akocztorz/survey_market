@@ -33,6 +33,6 @@
             </tbody>
         </table>
     {% endif %}
-    <a class="btn btn-default" href="{{ path('offer_create') }}" role="button">Dodaj</a>
+    <a class="btn btn-default" href="{{ path('offer_create', {'pollDefinition': pollDefinition.id}) }}" role="button">Dodaj</a>
 
 {% endblock %}

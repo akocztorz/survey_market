@@ -74,11 +74,12 @@ class OfferController extends Controller
     /**
      * Creates a new Offer entity.
      *
-     * @Route("/offer/create", name="offer_create")
+     * @Route("/offer/create/{pollDefinition}", name="offer_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, PollDefinition  $pollDefinition)
     {
         $entity = new Offer();
+        $entity->setPollDefinition($pollDefinition);
         $form = $this->createForm(new OfferType(), $entity, array(
             'method' => 'POST',
         ));
@@ -135,7 +136,7 @@ class OfferController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Zmień'));
 
         $form->handleRequest($request);
         if ($form->isValid()) {

@@ -136,7 +136,7 @@ class PollDefinitionController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Zmień'));
 
         $form->handleRequest($request);
         if ($form->isValid()) {

@@ -17,3 +17,13 @@ services:
           public: false
           tags:
             - { name: twig.extension }
+     poll.repository.question_definition:
+          class: Ak\PollBundle\Entity\QuestionDefinitionRepository
+          factory_service: doctrine.orm.default_entity_manager
+          factory_method: getRepository
+          arguments:
+              - Ak\PollBundle\Entity\QuestionDefinition
+     poll.question_definitions_provider:
+          class: Ak\PollBundle\Utils\Poll\QuestionDefinitionsProvider
+          arguments:
+              - @poll.repository.question_definition

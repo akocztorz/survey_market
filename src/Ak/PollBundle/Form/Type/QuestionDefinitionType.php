@@ -30,7 +30,8 @@ class QuestionDefinitionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('question', null, array('label'=> 'Pytanie'))
+            ->add('question', null, array('label' => 'Pytanie'))
+            ->add('position', null, array('label' => 'Numer Pytania'))
 
         ;
 

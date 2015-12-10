@@ -37,7 +37,13 @@ class QuestionDefinitionController extends Controller
         //questionDefinitionType hint w indexAction tworzy nowy PollDef i wyciąga dane z bazy poniższy kod nie jest koniczny. Tylko w kontrolerze!
 //        $em = $this->getDoctrine()->getManager();
 //        $pollDefinition = $em->getRepository("AkPollBundle:PollDefinition")->find($pollDefinition);
-        $entities = $pollDefinition->getQuestionsDefinitions();
+       // $entities = $pollDefinition->getQuestionsDefinitions();
+//        $entities = $pollDefinition->getQuestionsDefinitions();
+        $repository = $this->getDoctrine()->getManager()->getRepository("AkPollBundle:QuestionDefinition");
+        $entities = $repository->findBy(
+            ['pollDefinition'=>$pollDefinition->getId()],
+            ['position' => 'asc']
+        );
 
         $html = $this->container->get('templating')->render(
             'questionDefinition/index.html.twig',
@@ -50,7 +56,6 @@ class QuestionDefinitionController extends Controller
         return new Response(
             $html
         );
-
     }
 
 
@@ -85,6 +90,7 @@ class QuestionDefinitionController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setPosition($entity->getPosition()-1);
             $em->persist($entity);
             $em->flush();
 
@@ -147,6 +153,9 @@ class QuestionDefinitionController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity->setPosition($entity->getPosition()-1);
+            $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('questionDefinition_show',

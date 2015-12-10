@@ -2,6 +2,7 @@
 
 namespace Ak\PollBundle\Entity;
 
+use Ak\PollBundle\Entity\Traits\TimestampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Metadata\Tests\Driver\Fixture\A\A;
@@ -14,6 +15,8 @@ use Metadata\Tests\Driver\Fixture\A\A;
  */
 class Poll
 {
+    use TimestampableTrait;
+
     /**
      * @var integer
      *
@@ -22,7 +25,6 @@ class Poll
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
 
     /**
      * @var PollDefinition
@@ -85,6 +87,22 @@ class Poll
     public function setAnswers($answers)
     {
         $this->answers = $answers;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 
 

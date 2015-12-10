@@ -5,14 +5,14 @@
     <table class="table table-striped">
         <tbody>
             <tr>
-                <th>ID</th>
+                <th>Numer pytania</th>
                 <th>Pytanie</th>
                 <th>Typ pytania</th>
                 <th></th>
             </tr>
             {% for questionDefinition in questionDefinitionList %}
                 <tr>
-                    <td>{{ questionDefinition.id }}</td>
+                    <td>{{ questionDefinition.position + 1 }}</td>
                     <td>{{ questionDefinition.question }}</td>
                     <td>{{ questionDefinition|questionDefinitionType }}</td>
                     <td>

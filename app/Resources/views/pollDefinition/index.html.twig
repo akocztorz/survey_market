@@ -22,6 +22,8 @@
                         <a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do pytań</a>
                         <button class="btn btn-default" type="submit">Usuń</button>
                         <a class="btn btn-default" href="{{ path('show_for_pollDefinition_offer', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do ofert</a>
+                        <a class="btn btn-default" href="{{ path('offer_create', {'pollDefinition': pollDefinition.id}) }}" role="button">Dodaj ofertę</a>
+                        <a class="btn btn-default" href="{{ path('poll', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do ankiet</a>
                     </td>
                 </tr>
             {% endfor %}

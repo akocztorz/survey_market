@@ -7,7 +7,7 @@
         <tr>
             <th>ID</th>
             <th>Nazwa</th>
-            <th>Definicja Ankiety</th>
+            {#<th>Definicja Ankiety</th>#}
             <th>Stworzono</th>
             <th>Zmodyfikowano</th>
             <th></th>
@@ -17,7 +17,7 @@
                 <tr>
                     <td>{{ offer.id }}</td>
                     <td>{{ offer.offerName }}</td>
-                    <td>{{ offer.pollDefinition.name }}</td>
+                    {#<td>{{ offer.pollDefinition.name }}</td>#}
                     <td>{{ offer.created|date('Y-m-d H:i') }}</td>
                     <td>{{ offer.updated|date('Y-m-d H:i') }}</td>
                     <td>
@@ -30,6 +30,6 @@
         {% endfor %}
         </tbody>
     </table>
-    <a class="btn btn-default" href="{{ path('offer_create') }}" role="button">Dodaj</a>
+    <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Dodaj</a>
 
 {% endblock %}
