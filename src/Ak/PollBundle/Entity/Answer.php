@@ -2,8 +2,10 @@
 
 namespace Ak\PollBundle\Entity;
 
+use Ak\PollBundle\Entity\Traits\TimestampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Answer
@@ -13,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Answer
 {
+    use TimestampableTrait;
+
     /**
      * @var integer
      *
@@ -23,7 +27,22 @@ class Answer
     private $id;
 
     /**
-     * * @var ArrayCollection
+     * @var bool
+     *
+     * @ORM\Column(name="checked", type="boolean", nullable=true)
+     */
+    private $checked;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="free_text", type="text", nullable=true)
+     *
+     */
+    private $freeText;
+
+    /**
+     * * @var Poll
      *
      * @ORM\ManyToOne(targetEntity="Poll", inversedBy="answers")
      * @ORM\JoinColumn(name="poll_id", referencedColumnName="id")
@@ -38,15 +57,6 @@ class Answer
      */
     protected $optionDefinition;
 
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-        $this->poll = new ArrayCollection();
-    }
-
     /**
      * @return int
      */
@@ -56,7 +66,7 @@ class Answer
     }
 
     /**
-     * @return ArrayCollection
+     * @return Poll
      */
     public function getPoll()
     {
@@ -64,7 +74,7 @@ class Answer
     }
 
     /**
-     * @param ArrayCollection $poll
+     * @param Poll $poll
      */
     public function setPoll($poll)
     {
@@ -85,6 +95,38 @@ class Answer
     public function setOptionDefinition($optionDefinition)
     {
         $this->optionDefinition = $optionDefinition;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFreeText()
+    {
+        return $this->freeText;
+    }
+
+    /**
+     * @param string $freeText
+     */
+    public function setFreeText($freeText)
+    {
+        $this->freeText = $freeText;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getChecked()
+    {
+        return $this->checked;
+    }
+
+    /**
+     * @param bool $checked
+     */
+    public function setChecked($checked)
+    {
+        $this->checked = $checked;
     }
 
 

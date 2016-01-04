@@ -13,19 +13,21 @@
                 <th></th>
             </tr>
             {% for pollDefinition in pollDefinitionList %}
-                <tr>
-                    <td>{{ pollDefinition.id }}</td>
-                    <td>{{ pollDefinition.name }}</td>
-                    <td>
-                        <a class="btn btn-default" href="{{ path('pollDefinition_show', {'id': pollDefinition.id}) }}" role="button">Wyświetl</a>
-                        <a class="btn btn-default" href="{{ path('pollDefinition_edit', {'id': pollDefinition.id}) }}" role="button">Edytuj</a>
-                        <a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do pytań</a>
-                        <button class="btn btn-default" type="submit">Usuń</button>
-                        <a class="btn btn-default" href="{{ path('show_for_pollDefinition_offer', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do ofert</a>
-                        <a class="btn btn-default" href="{{ path('offer_create', {'pollDefinition': pollDefinition.id}) }}" role="button">Dodaj ofertę</a>
-                        <a class="btn btn-default" href="{{ path('poll', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do ankiet</a>
-                    </td>
-                </tr>
+                {% if not (pollDefinition.inactivated) %}
+                    <tr>
+                        <td>{{ pollDefinition.id }}</td>
+                        <td>{{ pollDefinition.name }}</td>
+                        <td>
+                            <a class="btn btn-default" href="{{ path('pollDefinition_show', {'id': pollDefinition.id}) }}" role="button">Wyświetl</a>
+                            <a class="btn btn-default" href="{{ path('pollDefinition_edit', {'id': pollDefinition.id}) }}" role="button">Edytuj</a>
+                            <a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do pytań</a>
+                            <a class="btn btn-default" href="{{ path('pollDefinition_inactivate', {'pollDefinition': pollDefinition.id}) }}" role="button">Usuń</a>
+                            <a class="btn btn-default" href="{{ path('show_for_pollDefinition_offer', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do ofert</a>
+                            <a class="btn btn-default" href="{{ path('offer_create', {'pollDefinition': pollDefinition.id}) }}" role="button">Dodaj ofertę</a>
+                            <a class="btn btn-default" href="{{ path('poll', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do ankiet</a>
+                        </td>
+                    </tr>
+                {% endif %}
             {% endfor %}
         </tbody>
     </table>

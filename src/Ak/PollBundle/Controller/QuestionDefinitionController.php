@@ -166,7 +166,19 @@ class QuestionDefinitionController extends Controller
             'questionDefinition/form.html.twig',
             array('form' => $form->createView(),)
         );
+    }
 
+    /**
+     * @Route("/poll-definition/{pollDefinition}/question-definition/{$questionDefinition}/inactivate", name="questionDefinition_inactivate")
+     */
+    public function inactivateAction(PollDefinition $pollDefinition, QuestionDefinition $questionDefinition)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AkPollBundle:QuestionDefinition')->find($questionDefinition->getId());
+        $entity->setInactivated(true);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('questionDefinition', array('pollDefinition' => $pollDefinition->getId())));
     }
 
 }

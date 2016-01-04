@@ -10,7 +10,6 @@ namespace Ak\PollBundle\Controller;
 use Ak\PollBundle\Entity\PollDefinition;
 use Ak\PollBundle\Form\Type\PollDefinitionType;
 use Ak\PollBundle\Form\Type\SearchType;
-use Proxies\__CG__\Ak\PollBundle\Entity\Poll;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -167,5 +166,18 @@ class PollDefinitionController extends Controller
         return new Response(
             $html
         );
+    }
+
+    /**
+     * @Route("/poll-definition/{pollDefinition}/inactivate", name="pollDefinition_inactivate")
+     */
+    public function inactivateAction(PollDefinition $pollDefinition)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AkPollBundle:PollDefinition')->find($pollDefinition->getId());
+        $entity->setInactivated(true);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('pollDefinition'));
     }
 }

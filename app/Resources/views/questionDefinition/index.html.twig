@@ -11,19 +11,21 @@
                 <th></th>
             </tr>
             {% for questionDefinition in questionDefinitionList %}
-                <tr>
-                    <td>{{ questionDefinition.position + 1 }}</td>
-                    <td>{{ questionDefinition.question }}</td>
-                    <td>{{ questionDefinition|questionDefinitionType }}</td>
-                    <td>
-                        <a class="btn btn-default" href="{{ path('questionDefinition_show', {'pollDefinition': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Wyświetl</a>
-                        <a class="btn btn-default" href="{{ path('questionDefinition_edit', {'pollDefinition': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Edytuj</a>
-                        {% if(questionDefinition|hasEditableOptions) %}
-                            <a class="btn btn-default" href="{{ path('optionDefinition', {'questionDefinition': questionDefinition.id }) }}" role="button">Przejdź do mozliwych odpowiedzi</a>
-                        {% endif %}
-                        <button class="btn btn-default" type="submit">Usuń</button>
-                    </td>
-                </tr>
+                {% if not (questionDefinition.inactivated) %}
+                    <tr>
+                        <td>{{ questionDefinition.position + 1 }}</td>
+                        <td>{{ questionDefinition.question }}</td>
+                        <td>{{ questionDefinition|questionDefinitionType }}</td>
+                        <td>
+                            <a class="btn btn-default" href="{{ path('questionDefinition_show', {'pollDefinition': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Wyświetl</a>
+                            <a class="btn btn-default" href="{{ path('questionDefinition_edit', {'pollDefinition': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Edytuj</a>
+                            <a class="btn btn-default" href="{{ path('questionDefinition_inactivate', {'pollDefinition': pollDefinition.id, 'questionDefinition': questionDefinition.id}) }}" role="button">Usuń</a>
+                            {% if(questionDefinition|hasEditableOptions) %}
+                                <a class="btn btn-default" href="{{ path('optionDefinition', {'questionDefinition': questionDefinition.id }) }}" role="button">Przejdź do mozliwych odpowiedzi</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
             {% endfor %}
         </tbody>
     </table>

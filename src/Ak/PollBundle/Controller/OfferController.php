@@ -152,4 +152,20 @@ class OfferController extends Controller
 
     }
 
+    /**
+     * @Route("/offer/{offer}/inactivate", name="offer_inactivate")
+     * @param Offer $offer
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function inactivateAction(Offer $offer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AkPollBundle:Offer')->find($offer->getId());
+        $entity->setInactivated(true);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('show_for_pollDefinition_offer', array('pollDefinition' => $offer->getPollDefinition()->getId())));
+
+    }
+
     }

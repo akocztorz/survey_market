@@ -27,3 +27,17 @@ services:
           class: Ak\PollBundle\Utils\Poll\QuestionDefinitionsProvider
           arguments:
               - @poll.repository.question_definition
+     poll.question_definition_provider:
+          class: Ak\PollBundle\Utils\Poll\QuestionDefinitionProvider
+          arguments:
+              - @poll.question_definitions_provider
+
+     type.answer_type:
+          class: Ak\PollBundle\Form\Type\AnswerType
+          tags:
+              - { name: form.type, alias: answer }
+     validator.question_class:
+          class: Ak\PollBundle\Validator\Constraints\QuestionClassValidator
+          tags:
+              - { name: validator.constraint_validator, alias: question_validator}
+

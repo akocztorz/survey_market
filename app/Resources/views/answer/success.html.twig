@@ -1,0 +1,6 @@
+{% extends 'page.html.twig' %}
+
+{% block contents %}
+        <h1> Ankieta została zapisana </h1>
+        <a class="btn btn-default" href="{{ path('poll' , {'pollDefinition': pollDefinition.id}) }}" role="button">Powrót</a>
+{% endblock %}

@@ -58,6 +58,7 @@ class PollController extends Controller
     {
         $entity = new Poll();
         $entity->setPollDefinition($pollDefinition);
+        $entity->setLastAnsweredQuestion(0);
         $em = $this->getDoctrine()->getManager();
         $em->persist($entity);
         $em->flush();
@@ -66,13 +67,6 @@ class PollController extends Controller
 
     }
 
-    /**
-     *
-     * @Route("/poll/{poll}/fill", name="fill")
-     */
-    public function fillAction(Poll $poll)
-    {
 
-    }
 
 }

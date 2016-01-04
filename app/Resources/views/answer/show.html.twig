@@ -1,0 +1,56 @@
+{% extends 'page.html.twig' %}
+
+{% block contents %}
+<h1>Dfinicja Ankiety : {{ poll.pollDefinition.name }}</h1>
+<h5>Ankieta stworzona : {{ poll.created|date('Y-m-d H:i') }}</h5>
+<h5>Ostatnia modyfikacja: {{ poll.updated|date('Y-m-d H:i') }}</h5>
+<h5>Status :
+    {% if(poll.completed) %}
+        Wypełniona
+    {% else %}
+        Niewypełniona
+    {% endif %}
+</h5>
+<h1></h1>
+
+{% for questionDefinition in poll.pollDefinition.questionsDefinitions %}
+    <dl class="list-unstyled">
+       <dt>
+           {{ questionDefinition.question }}
+           <dd>
+               {% if(questionDefinition|hasEditableOptions) %}
+                 {% for optionDefinition in questionDefinition.optionDefinitions %}
+                     {% for answer in poll.answers %}
+                         {% if(answer.optionDefinition.id == optionDefinition.id and answer.checked) %}
+                            <li>
+                                {{ optionDefinition.response }}
+                                <ul>
+                                    {% if(optionDefinition.freeText) %}
+                                        <li>
+                                            {{ answer.freeText }}
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                         {% endif %}
+                     {% endfor %}
+                 {% endfor %}
+               {% else %}
+                   {% for optionDefinition in questionDefinition.optionDefinitions %}
+                       {% for answer in poll.answers %}
+                           {% if(answer.optionDefinition.id == optionDefinition.id) %}
+                               <li>
+                                   {{ answer.freeText }}
+                               </li>
+                           {% endif %}
+                       {% endfor %}
+                   {% endfor %}
+               {% endif %}
+           </dd>
+       </dt>
+    </dl>
+{% endfor %}
+
+    <a class="btn btn-default" href="{{ path('poll', {'pollDefinition': poll.pollDefinition.id}) }}" role="button">Powrót</a>
+
+{% endblock %}

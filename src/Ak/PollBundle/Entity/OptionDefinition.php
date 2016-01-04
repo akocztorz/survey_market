@@ -27,7 +27,6 @@ abstract class OptionDefinition
      */
     private $id;
 
-
     /**
      * @var string
      *

@@ -13,26 +13,31 @@
                 <th>Definicja Ankiety</th>
                 <th>Stworzono</th>
                 <th>Zmodyfikowano</th>
+                <th></th>
             </tr>
 
             {% for offer in offerList %}
-                <tr>
-                    <td>{{ offer.id }}</td>
-                    <td>{{ offer.offerName }}</td>
-                    <td>{{ offer.pollDefinition.name }}</td>
-                    <td>{{ offer.created|date('Y-m-d H:i') }}</td>
-                    <td>{{ offer.updated|date('Y-m-d H:i') }}</td>
-                    <td>
-                        <a class="btn btn-default" href="{{ path('offer_show', {'id': offer.id}) }}" role="button">Wyświetl</a>
-                        <a class="btn btn-default" href="{{ path('offer_edit', {'id': offer.id}) }}" role="button">Edytuj</a>
-                        {#<a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do pytań</a>#}
-                        {#&#123;&#35;<button class="btn btn-default" type="submit">Usuń</button>&#35;&#125;#}
-                    </td>
-                </tr>
+                {% if not (offer.inactivated) %}
+                    <tr>
+                        <td>{{ offer.id }}</td>
+                        <td>{{ offer.offerName }}</td>
+                        <td>{{ offer.pollDefinition.name }}</td>
+                        <td>{{ offer.created|date('Y-m-d H:i') }}</td>
+                        <td>{{ offer.updated|date('Y-m-d H:i') }}</td>
+                        <td>
+                            <a class="btn btn-default" href="{{ path('offer_show', {'id': offer.id}) }}" role="button">Wyświetl</a>
+                            <a class="btn btn-default" href="{{ path('offer_edit', {'id': offer.id}) }}" role="button">Edytuj</a>
+                            <a class="btn btn-default" href="{{ path('offer_inactivate', {'offer': offer.id}) }}" role="button">Usuń</a>
+                            {#<a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do pytań</a>#}
+                            {#&#123;&#35;<button class="btn btn-default" type="submit">Usuń</button>&#35;&#125;#}
+                        </td>
+                    </tr>
+                {% endif %}
             {% endfor %}
             </tbody>
         </table>
     {% endif %}
     <a class="btn btn-default" href="{{ path('offer_create', {'pollDefinition': pollDefinition.id}) }}" role="button">Dodaj</a>
+    <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Powrót</a>
 
 {% endblock %}

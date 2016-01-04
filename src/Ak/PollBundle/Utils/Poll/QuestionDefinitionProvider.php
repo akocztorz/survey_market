@@ -29,6 +29,7 @@ class QuestionDefinitionProvider
 
     /**
      * @param Poll $poll
+     * @param $position
      * @return QuestionDefinition
      */
     public function getQuestionDefinition(Poll $poll, $position)

@@ -29,7 +29,7 @@ class Poll
     /**
      * @var PollDefinition
      *
-     * @ORM\ManyToOne(targetEntity="pollDefinition", inversedBy="polls")
+     * @ORM\ManyToOne(targetEntity="PollDefinition", inversedBy="polls")
      * @ORM\JoinColumn(name="poll_definition_id", referencedColumnName="id")
      */
     protected $pollDefinition;
@@ -37,9 +37,23 @@ class Poll
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Answer", mappedBy="poll")
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="poll", cascade={"persist"})
      */
     protected $answers;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="completed", type="boolean", nullable=true)
+     */
+    private $completed;
+
+    /**
+     * @var integer;
+     *
+     * @ORM\Column(name="las_answered_question", type="integer")
+     */
+    private $lastAnsweredQuestion;
 
     /**
      *
@@ -103,6 +117,46 @@ class Poll
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @param Answer $answer
+     */
+    public function addAnswer(Answer $answer)
+    {
+        $this->answers->add($answer);
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCompleted()
+    {
+        return $this->completed;
+    }
+
+    /**
+     * @param boolean $completed
+     */
+    public function setCompleted($completed)
+    {
+        $this->completed = $completed;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLastAnsweredQuestion()
+    {
+        return $this->lastAnsweredQuestion;
+    }
+
+    /**
+     * @param int $lastAnsweredQuestion
+     */
+    public function setLastAnsweredQuestion($lastAnsweredQuestion)
+    {
+        $this->lastAnsweredQuestion = $lastAnsweredQuestion;
     }
 
 

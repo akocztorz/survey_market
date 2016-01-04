@@ -8,6 +8,7 @@
             <th>ID</th>
             <th>Utworzono</th>
             <th>Zmodyfikowano</th>
+            <th>Wypełniona</th>
             <th></th>
         </tr>
         {% for poll in pollList %}
@@ -16,9 +17,18 @@
                 <td>{{ poll.created|date('Y-m-d H:i') }}</td>
                 <td>{{ poll.updated|date('Y-m-d H:i') }}</td>
                 <td>
-                    {#<a class="btn btn-default" href="{{ path('answer', {'poll': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Wyświetl</a>#}
-                    {#<a class="btn btn-default" href="{{ path('questionDefinition_edit', {'pollDefinition': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Edytuj</a>#}
-                    {#<button class="btn btn-default" type="submit">Usuń</button>#}
+                    {%if(poll.completed)%}
+                        Tak
+                    {% else %}
+                        Nie
+                    {% endif %}
+                </td>
+                <td>
+                    {%if not(poll.completed)%}
+                        <a class="btn btn-default" href="{{ path('answer', {'poll': poll.id, 'position': poll.lastAnsweredQuestion }) }}" role="button">Wypełnij</a>
+                    {% else %}
+                        <a class="btn btn-default" href="{{ path('poll_show', {'poll': poll.id }) }}" role="button">Wyświetl</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

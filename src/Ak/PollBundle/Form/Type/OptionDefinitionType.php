@@ -29,10 +29,11 @@ class OptionDefinitionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('response', null, array('label'=> 'odpowiedź'));
+            ->add('response', null, array('label'=> 'odpowiedź'))
+            ->add('freeText', null, array('label'=> 'dodaj pole tekstowe'))
+        ;
 
     }
-
 
     /**
      * @return string

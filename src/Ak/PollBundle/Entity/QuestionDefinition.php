@@ -2,6 +2,7 @@
 
 namespace Ak\PollBundle\Entity;
 
+use Ak\PollBundle\Entity\Traits\SoftdeleteableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -13,7 +14,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="Ak\PollBundle\Entity\QuestionDefinitionRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="definition_type", type="string")
- * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
  * @ORM\DiscriminatorMap({
  *   "open" = "QuestionDefinitionOpen",
  *   "single_choice" = "QuestionDefinitionSingleChoice",
@@ -24,6 +24,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 abstract class QuestionDefinition
 {
+    use SoftdeleteableTrait;
+
     /**
      * @var integer
      *
@@ -128,6 +130,7 @@ abstract class QuestionDefinition
     {
         $this->position = $position;
     }
+
 
 
 }

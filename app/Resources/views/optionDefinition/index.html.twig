@@ -2,18 +2,26 @@
 
 {% block contents %}
     {% if (questionDefinition|hasEditableOptions) %}
-        <h1>Odpowiedzi na pytanie : {{ questionDefinition.question }}</h1>
+        <h1>Możliwe odpowiedzi na pytanie : {{ questionDefinition.question }}</h1>
         <table class="table table-striped">
             <tbody>
             <tr>
                 <th>ID</th>
                 <th>Odpowiedź</th>
+                <th>Dodatkowe pole tekstowe</th>
                 <th></th>
             </tr>
             {% for optionDefinition in optionDefinitionList %}
                     <tr>
                         <td>{{ optionDefinition.id }}</td>
                         <td>{{ optionDefinition.response }}</td>
+                        <td>
+                            {% if(optionDefinition.freeText == "True" ) %}
+                                Tak
+                            {% else %}
+                                Nie
+                            {% endif %}
+                        </td>
                         <td>
                             <a class="btn btn-default" href="{{ path('optionDefinition_show', {'questionDefinition': questionDefinition.id, 'id' : optionDefinition.id, 'questionDefinitionType' : questionDefinition|questionDefinitionType}) }}" role="button">Wyświetl</a>
                             <a class="btn btn-default" href="{{ path('optionDefinition_edit', {'questionDefinition': questionDefinition.id, 'id' : optionDefinition.id, 'questionDefinitionType' : questionDefinition|questionDefinitionType }) }}" role="button">Edytuj</a>

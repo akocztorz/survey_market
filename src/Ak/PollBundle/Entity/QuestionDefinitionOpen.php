@@ -57,7 +57,7 @@ class QuestionDefinitionOpen extends QuestionDefinition
      */
     public function getOptionDefinitions()
     {
-        return $this->getOptionDefinitionOpen();
+        return new ArrayCollection(array($this->getOptionDefinitionOpen(),)) ;
     }
 
 }
