@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 /**
@@ -28,6 +29,7 @@ class PollDefinitionController extends Controller
      * Lists all pollDefinition entities.
      *
      * @Route("/poll-definition", name="pollDefinition")
+     * @Security("has_role('ROLE_EMPLOYER')")
      *
      */
     public function indexAction(Request $request)
@@ -72,6 +74,7 @@ class PollDefinitionController extends Controller
      * Creates a new PollDefinition entity.
      *
      * @Route("/poll-definition/create", name="pollDefinition_create")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function createAction(Request $request)
     {
@@ -104,6 +107,7 @@ class PollDefinitionController extends Controller
 
     /**
      * @Route("/poll-definition/{id}/show", name="pollDefinition_show")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function showAction($id)
     {
@@ -124,6 +128,7 @@ class PollDefinitionController extends Controller
 
     /**
      * @Route("/poll-definition/{id}/edit", name="pollDefinition_edit")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function editAction(Request $request,$id)
     {
@@ -152,6 +157,7 @@ class PollDefinitionController extends Controller
     }
     /**
      * @Route("/poll-definition/success/{changeType}/{id}", name="pollDefinition_success")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function successAction($changeType, $id)
     {
@@ -170,6 +176,7 @@ class PollDefinitionController extends Controller
 
     /**
      * @Route("/poll-definition/{pollDefinition}/inactivate", name="pollDefinition_inactivate")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function inactivateAction(PollDefinition $pollDefinition)
     {

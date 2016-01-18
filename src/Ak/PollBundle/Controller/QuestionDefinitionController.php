@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Ak\PollBundle\Entity\QuestionDefinition;
 use Ak\PollBundle\Entity\PollDefinition;
 use Ak\PollBundle\Form\Type\QuestionDefinitionType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class QuestionDefinitionController
@@ -31,6 +32,7 @@ class QuestionDefinitionController extends Controller
     /**
      * @Route("/poll-definition/{pollDefinition}/question-definition", name="questionDefinition")
      * @Method("GET")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function indexAction(PollDefinition $pollDefinition)
     {
@@ -61,6 +63,7 @@ class QuestionDefinitionController extends Controller
 
     /**
      * @Route("/poll-definition/{pollDefinition}/question-definition/create/{questionDefinitionType}", name="questionDefinition_create")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function createAction(Request $request, PollDefinition $pollDefinition, $questionDefinitionType)
     {
@@ -116,6 +119,7 @@ class QuestionDefinitionController extends Controller
 
     /**
      * @Route("/poll-definition/{pollDefinition}/question-definition/{id}/show", name="questionDefinition_show")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function showAction(PollDefinition $pollDefinition, $id)
     {
@@ -138,6 +142,7 @@ class QuestionDefinitionController extends Controller
 
     /**
      * @Route("/poll-definition/{pollDefinition}/question-definition/{id}/edit", name="questionDefinition_edit")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function editAction(Request $request,PollDefinition $pollDefinition, $id)
     {
@@ -170,6 +175,7 @@ class QuestionDefinitionController extends Controller
 
     /**
      * @Route("/poll-definition/{pollDefinition}/question-definition/{$questionDefinition}/inactivate", name="questionDefinition_inactivate")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function inactivateAction(PollDefinition $pollDefinition, QuestionDefinition $questionDefinition)
     {

@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Ak\PollBundle\Entity\QuestionDefinition;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 /**
@@ -33,6 +34,7 @@ class OptionDefinitionController extends Controller
     /**
      * @Route("/question-definition/{questionDefinition}/option-definition", name="optionDefinition")
      * @Method("GET")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function indexAction($questionDefinition)
     {
@@ -56,6 +58,7 @@ class OptionDefinitionController extends Controller
 
     /**
      * @Route("/question-definition/{questionDefinition}/option-definition/create", name="optionDefinition_create")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function createAction(Request $request, QuestionDefinition $questionDefinition)
     {
@@ -92,6 +95,7 @@ class OptionDefinitionController extends Controller
 
     /**
      * @Route("/question-definition/{questionDefinition}/option-definition/{id}/show", name="optionDefinition_show")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function showAction(QuestionDefinition $questionDefinition, $id)
     {
@@ -113,6 +117,7 @@ class OptionDefinitionController extends Controller
 
     /**
      * @Route("/question-definition/{questionDefinition}/option-definition/{id}/edit", name="optionDefinition_edit")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function editAction(Request $request,QuestionDefinition $questionDefinition, $id)
     {

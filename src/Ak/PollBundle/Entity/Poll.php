@@ -51,9 +51,17 @@ class Poll
     /**
      * @var integer;
      *
-     * @ORM\Column(name="las_answered_question", type="integer")
+     * @ORM\Column(name="last_answered_question", type="integer")
      */
     private $lastAnsweredQuestion;
+
+    /**
+     * @var Deal
+     *
+     * @ORM\ManyToOne(targetEntity="Deal", inversedBy="polls")
+     * @ORM\JoinColumn(name="deal_id", referencedColumnName="id")
+     */
+    private $deal;
 
     /**
      *
@@ -157,6 +165,22 @@ class Poll
     public function setLastAnsweredQuestion($lastAnsweredQuestion)
     {
         $this->lastAnsweredQuestion = $lastAnsweredQuestion;
+    }
+
+    /**
+     * @return Deal
+     */
+    public function getDeal()
+    {
+        return $this->deal;
+    }
+
+    /**
+     * @param Deal $deal
+     */
+    public function setDeal($deal)
+    {
+        $this->deal = $deal;
     }
 
 

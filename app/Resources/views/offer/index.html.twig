@@ -10,26 +10,42 @@
             {#<th>Definicja Ankiety</th>#}
             <th>Stworzono</th>
             <th>Zmodyfikowano</th>
+            <th>Zatwierdzona</th>
             <th></th>
         </tr>
 
         {% for offer in offerList %}
+            {% if (not offer.inactivated and is_granted('ROLE_EMPLOYER')) or (not offer.inactivated and offer.sealed and is_granted('ROLE_POLLSTER')) %}
                 <tr>
                     <td>{{ offer.id }}</td>
                     <td>{{ offer.offerName }}</td>
                     {#<td>{{ offer.pollDefinition.name }}</td>#}
                     <td>{{ offer.created|date('Y-m-d H:i') }}</td>
                     <td>{{ offer.updated|date('Y-m-d H:i') }}</td>
+                    {% if offer.sealed %}
+                        <td>Tak</td>
+                    {% else %}
+                        <td>Nie</td>
+                    {% endif %}
                     <td>
                         <a class="btn btn-default" href="{{ path('offer_show', {'id': offer.id}) }}" role="button">Wyświetl</a>
-                        <a class="btn btn-default" href="{{ path('offer_edit', {'id': offer.id}) }}" role="button">Edytuj</a>
+                        {% if not offer.sealed and is_granted('ROLE_EMPLOYER')%}
+                            <a class="btn btn-default" href="{{ path('offer_edit', {'id': offer.id}) }}" role="button">Edytuj</a>
+                            <a class="btn btn-default" href="{{ path('offer_seal', {'offer': offer.id}) }}" role="button">Zatwierdź</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_EMPLOYER')%}
+                            <a class="btn btn-default" href="{{ path('offer_inactivate', {'offer': offer.id}) }}" role="button">Usuń</a>
+                        {% endif %}
                         {#<a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do pytań</a>#}
                         {#&#123;&#35;<button class="btn btn-default" type="submit">Usuń</button>&#35;&#125;#}
                     </td>
                 </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
-    <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Dodaj</a>
-    <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Powrót</a>
+    {% if is_granted('ROLE_EMPLOYER')%}
+        <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Dodaj</a>
+        <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Powrót</a>
+    {% endif %}
 {% endblock %}

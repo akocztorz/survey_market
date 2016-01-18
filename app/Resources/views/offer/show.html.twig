@@ -7,18 +7,23 @@
     <table class="table table-striped">
         <tbody>
         <tr>
-            <th>ID</th>
             <th>Nazwa</th>
             <th>Definicja Ankiety</th>
-            <th>Ilość Ankiet Do Wykonania</th>
+            <th>Zamawiana ilość</th>
             <th>Cena jednostkowa</th>
-            <th>Minimalna Akceptowana Ilość</th>
+            <th>Minimalna Ilość</th>
             <th>Stworzono</th>
             <th>Zmodyfikowano</th>
             <th>Data Realizacji</th>
+            {% if is_granted('ROLE_POLLSTER') %}
+                <th>Zaakceptowana</th>
+                <th>Zaakceptowana ilość</th>
+                <th>Pozostało do wykonania</th>
+            {% endif %}
+            <th></th>
+            <th></th>
         </tr>
         <tr>
-            <td>{{ offer.id }}</td>
             <td>{{ offer.offerName }}</td>
             <td>{{ offer.pollDefinition.name }}</td>
             <td>{{ offer.quantity}}</td>
@@ -27,8 +32,39 @@
             <td>{{ offer.created|date('Y-m-d H:i') }}</td>
             <td>{{ offer.updated|date('Y-m-d H:i') }}</td>
             <td>{{ offer.dueDate|date('Y-m-d H:i')  }}</td>
+            {% if is_granted('ROLE_POLLSTER') %}
+                {% set sumQuantity = 0 %}
+                {% set sumToDo = 0 %}
+                {% set count = 0 %}
+                {% for deal in deals %}
+                    {% if deal.user.id == app.user.id %}
+                        {% set isAccepted = true %}
+                        {% set sumQuantity = sumQuantity + deal.quantity %}
+                        {% for poll in deal.polls  %}
+                            {% if poll.completed  %}
+                                {% set count = count + 1 %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                {% set sumToDo = sumQuantity - count %}
+                {% if isAccepted %}
+                    <td>Tak</td>
+                {% else %}
+                    <td>Nie</td>
+                {% endif %}
+                <td>{{ sumQuantity }}</td>
+                <td>{{ sumToDo }}</td>
+                {% if isAccepted %}
+                    <td><a class="btn btn-default" href="{{ path('poll', {'pollDefinition': offer.pollDefinition.id}) }}" role="button">Przejdź do ankiet</a></td>
+                {% endif%}
+                {% if offer.quantity >= offer.minQuantity %}
+                    <td><a class="btn btn-default" href="{{ path('offer_accept', {'offer': offer.id, 'user': app.user.id }) }}" role="button">Akceptuj</a></td>
+                {% endif %}
+            {% endif %}
         </tr>
         </tbody>
     </table>
-    <a class="btn btn-default" href="{{ path('offer') }}" role="button">Powrót</a>
+    <a class="btn btn-default" href="{{ path('offer') }}" role="button">Wszystkie oferty</a>
+    <a class="btn btn-default" href="{{ path('show_for_pollDefinition_offer', {'pollDefinition': offer.pollDefinition.id}) }}" role="button">Oferty dla Definicji Ankiety nr {{ offer.pollDefinition.id }}</a>
 {% endblock%}

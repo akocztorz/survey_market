@@ -82,6 +82,7 @@ class Offer
      */
     private $sealed = false;
 
+
     /**
      * @var PollDefinition
      *
@@ -89,6 +90,12 @@ class Offer
      * @ORM\JoinColumn(name="poll_definition_id", referencedColumnName="id")
      */
     protected $pollDefinition;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Deal", mappedBy="offer")
+     */
+    protected $deals;
 
 
     /**

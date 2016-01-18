@@ -1,7 +1,7 @@
 {% extends 'page.html.twig' %}
 
 {% block contents %}
-    <h1>Wypełnione Ankiety dla Definicji : {{ pollDefinition.name }}</h1>
+    <h1>Ankiety dla Definicji : {{ pollDefinition.name }}</h1>
     <table class="table table-striped">
         <tbody>
         <tr>
@@ -9,31 +9,67 @@
             <th>Utworzono</th>
             <th>Zmodyfikowano</th>
             <th>Wypełniona</th>
+            <th>Stworzona przez</th>
             <th></th>
         </tr>
-        {% for poll in pollList %}
-            <tr>
-                <td>{{ poll.id }}</td>
-                <td>{{ poll.created|date('Y-m-d H:i') }}</td>
-                <td>{{ poll.updated|date('Y-m-d H:i') }}</td>
-                <td>
-                    {%if(poll.completed)%}
-                        Tak
-                    {% else %}
-                        Nie
-                    {% endif %}
-                </td>
-                <td>
-                    {%if not(poll.completed)%}
-                        <a class="btn btn-default" href="{{ path('answer', {'poll': poll.id, 'position': poll.lastAnsweredQuestion }) }}" role="button">Wypełnij</a>
-                    {% else %}
+        {% if is_granted('ROLE_EMPLOYER') %}
+            {% for poll in pollList %}
+                <tr>
+                    <td>{{ poll.id }}</td>
+                    <td>{{ poll.created|date('Y-m-d H:i') }}</td>
+                    <td>{{ poll.updated|date('Y-m-d H:i') }}</td>
+                    <td>
+                        {%if(poll.completed)%}
+                            Tak
+                        {% else %}
+                            Nie
+                        {% endif %}
+                    </td>
+                    <td>{{ poll.deal.user.username }}</td>
+                    <td>
                         <a class="btn btn-default" href="{{ path('poll_show', {'poll': poll.id }) }}" role="button">Wyświetl</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        {% set id = null %}
+        {% if is_granted('ROLE_POLLSTER') %}
+            {% for poll in pollList %}
+                {% if poll.deal.user.id is defined %}
+                    {% if poll.deal.user.id == app.user.id %}
+                        {% if poll.deal.user.id is defined %}
+                            {%  set id = poll.deal.offer.id %}
+                        {% endif %}
+                        <tr>
+                            <td>{{ poll.id }}</td>
+                            <td>{{ poll.created|date('Y-m-d H:i') }}</td>
+                            <td>{{ poll.updated|date('Y-m-d H:i') }}</td>
+                            <td>
+                                {%if(poll.completed)%}
+                                    Tak
+                                {% else %}
+                                    Nie
+                                {% endif %}
+                            </td>
+                            <td>{{ poll.deal.user.username }}</td>
+                            <td>
+                                <a class="btn btn-default" href="{{ path('poll_show', {'poll': poll.id }) }}" role="button">Wyświetl</a>
+                                {%if not(poll.completed) and is_granted('ROLE_POLLSTER')%}
+                                    <a class="btn btn-default" href="{{ path('answer', {'poll': poll.id, 'position': poll.lastAnsweredQuestion }) }}" role="button">Wypełnij</a>
+                                {% endif %}
+                            </td>
+                        </tr>
                     {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
         </tbody>
     </table>
-    <a class="btn btn-default" href="{{ path('poll_create', {'pollDefinition':pollDefinition.id}) }}" role="button">Dodaj</a>
-    <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Powrót</a>
+    {% if is_granted('ROLE_POLLSTER') %}
+        <a class="btn btn-default" href="{{ path('poll_create', {'pollDefinition':pollDefinition.id, 'user': app.user.id }) }}" role="button">Dodaj</a>
+        <a class="btn btn-default" href="{{ path('offer_show', {'id': id}) }}" role="button">Powrót</a>
+    {% elseif is_granted('ROLE_EMPLOYER') %}
+        <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Powrót</a>
+    {% endif %}
 {% endblock %}

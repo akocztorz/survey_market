@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class AnswerController
@@ -28,7 +29,7 @@ class AnswerController extends Controller
 
     /**
      * @Route("/poll/{poll}/answer/{position}", name="answer")
-     *
+     * @Security("has_role('ROLE_POLLSTER')")
      */
     public function fillInAction(Request $request, Poll $poll, $position)
     {
@@ -80,6 +81,8 @@ class AnswerController extends Controller
     /**
      * @Route("/poll/{poll}/success" , name="poll_success")
      * @Method("GET")
+     * @Security("has_role('ROLE_POLLSTER')")
+     *
      */
     public function successAction(Poll $poll)
     {
@@ -98,6 +101,7 @@ class AnswerController extends Controller
 
     /**
      * @Route("poll/{poll}/show", name="poll_show")
+     * @Security("has_role('ROLE_EMPLOYER') or has_role('ROLE_POLLSTER')")
      */
     public function showAction(Poll $poll)
     {
