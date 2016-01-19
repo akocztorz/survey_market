@@ -8,7 +8,6 @@
         <table class="table table-striped">
             <tbody>
             <tr>
-                <th>ID</th>
                 <th>Nazwa</th>
                 <th>Definicja Ankiety</th>
                 <th>Stworzono</th>
@@ -20,7 +19,6 @@
             {% for offer in offerList %}
                 {% if not offer.inactivated or (not offer.inactivated and offer.seald and is_granted('ROLE_POLLSTER')) %}
                     <tr>
-                        <td>{{ offer.id }}</td>
                         <td>{{ offer.offerName }}</td>
                         <td>{{ offer.pollDefinition.name }}</td>
                         <td>{{ offer.created|date('Y-m-d H:i') }}</td>

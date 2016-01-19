@@ -7,7 +7,6 @@
     <table class="table table-striped">
         <tbody>
             <tr>
-                <th>ID</th>
                 <th>Nazwa</th>
                 {#<th>Ilość ofert</th>#}
                 <th></th>
@@ -15,7 +14,6 @@
             {% for pollDefinition in pollDefinitionList %}
                 {% if not (pollDefinition.inactivated) %}
                     <tr>
-                        <td>{{ pollDefinition.id }}</td>
                         <td>{{ pollDefinition.name }}</td>
                         <td>
                             <a class="btn btn-default" href="{{ path('pollDefinition_show', {'id': pollDefinition.id}) }}" role="button">Wyświetl</a>

@@ -5,7 +5,6 @@
     <table class="table table-striped">
         <tbody>
         <tr>
-            <th>ID</th>
             <th>Utworzono</th>
             <th>Zmodyfikowano</th>
             <th>Wypełniona</th>
@@ -15,7 +14,6 @@
         {% if is_granted('ROLE_EMPLOYER') %}
             {% for poll in pollList %}
                 <tr>
-                    <td>{{ poll.id }}</td>
                     <td>{{ poll.created|date('Y-m-d H:i') }}</td>
                     <td>{{ poll.updated|date('Y-m-d H:i') }}</td>
                     <td>
