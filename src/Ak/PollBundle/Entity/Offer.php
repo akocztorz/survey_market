@@ -218,5 +218,21 @@ class Offer
         $this->offerName = $offerName;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getDeals()
+    {
+        return $this->deals;
+    }
+
+    /**
+     * @param ArrayCollection $deals
+     */
+    public function setDeals($deals)
+    {
+        $this->deals = $deals;
+    }
+
 
 }

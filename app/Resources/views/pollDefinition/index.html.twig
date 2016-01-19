@@ -19,7 +19,11 @@
                         <td>{{ pollDefinition.name }}</td>
                         <td>
                             <a class="btn btn-default" href="{{ path('pollDefinition_show', {'id': pollDefinition.id}) }}" role="button">Wyświetl</a>
-                            <a class="btn btn-default" href="{{ path('pollDefinition_edit', {'id': pollDefinition.id}) }}" role="button">Edytuj</a>
+                            {% for offer in pollDefinition.offers %}
+                                {% if offer.deals.count == 0 %}
+                                    <a class="btn btn-default" href="{{ path('pollDefinition_edit', {'id': pollDefinition.id}) }}" role="button">Edytuj</a>
+                                {% endif %}
+                            {% endfor %}
                             <a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do pytań</a>
                             <a class="btn btn-default" href="{{ path('pollDefinition_inactivate', {'pollDefinition': pollDefinition.id}) }}" role="button">Usuń</a>
                             <a class="btn btn-default" href="{{ path('show_for_pollDefinition_offer', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do ofert</a>
