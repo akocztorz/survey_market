@@ -22,6 +22,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 
 /**
+ * validates the data coming from the Question form
  * Class QuestionClassValidator
  * @package Ak\PollBundle\Validator\Constraints
  */
@@ -51,6 +52,7 @@ class QuestionClassValidator extends ConstraintValidator
     }
 
     /**
+     * checks if the freeText field is not empty
      * @param Question $question
      * @return bool
      */
@@ -88,6 +90,7 @@ class QuestionClassValidator extends ConstraintValidator
     }
 
     /**
+     * checks if correct number of options has been checked
      * @param Question $question
      * @return bool
      */
@@ -123,6 +126,7 @@ class QuestionClassValidator extends ConstraintValidator
     }
 
     /**
+     * returns answers count given in the form
      * @param Question $question
      * @return int
      */

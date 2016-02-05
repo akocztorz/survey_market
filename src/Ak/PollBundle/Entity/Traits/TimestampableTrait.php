@@ -13,12 +13,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * Class TimestampableTrait
+ * Class TimestampableTrait - adds updated and created fields to the database table
  * @package Ak\PollBundle\Entity\Traits
+ *
  */
 trait TimestampableTrait
 {
     /**
+     * stores information when the record was created
      * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -27,6 +29,7 @@ trait TimestampableTrait
     private $created;
 
     /**
+     * stores information when the record was updated for the last time
      * @var \DateTime $updated
      *
      * @Gedmo\Timestampable(on="update")

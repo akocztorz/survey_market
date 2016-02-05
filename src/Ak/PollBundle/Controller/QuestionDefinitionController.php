@@ -24,15 +24,20 @@ use Ak\PollBundle\Form\Type\QuestionDefinitionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * Class QuestionDefinitionController
+ * Class QuestionDefinitionController -  displays all question definitions for specific poll definition and specific question definition, adds, edits and removes question definition
  * @package Ak\PollBundle\Controller
  */
 class QuestionDefinitionController extends Controller
 {
     /**
+     * lists question definitions for specific poll definition
      * @Route("/poll-definition/{pollDefinition}/question-definition", name="questionDefinition")
      * @Method("GET")
      * @Security("has_role('ROLE_EMPLOYER')")
+     * @param PollDefinition $pollDefinition
+     * @return Response
+     * @throws \Exception
+     * @throws \Twig_Error
      */
     public function indexAction(PollDefinition $pollDefinition)
     {
@@ -62,6 +67,12 @@ class QuestionDefinitionController extends Controller
 
 
     /**
+     * creates new QuestionDefinition entity
+     * @param Request $request
+     * @param PollDefinition $pollDefinition
+     * @param $questionDefinitionType
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @internal param $
      * @Route("/poll-definition/{pollDefinition}/question-definition/create/{questionDefinitionType}", name="questionDefinition_create")
      * @Security("has_role('ROLE_EMPLOYER')")
      */
@@ -118,6 +129,13 @@ class QuestionDefinitionController extends Controller
     }
 
     /**
+     * displayes question definition
+     * @param PollDefinition $pollDefinition
+     * @param $id
+     * @return Response
+     * @throws \Exception
+     * @throws \Twig_Error
+     * @internal param $
      * @Route("/poll-definition/{pollDefinition}/question-definition/{id}/show", name="questionDefinition_show")
      * @Security("has_role('ROLE_EMPLOYER')")
      */
@@ -141,6 +159,11 @@ class QuestionDefinitionController extends Controller
     }
 
     /**
+     * edits question definition
+     * @param Request $request
+     * @param PollDefinition $pollDefinition
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @Route("/poll-definition/{pollDefinition}/question-definition/{id}/edit", name="questionDefinition_edit")
      * @Security("has_role('ROLE_EMPLOYER')")
      */
@@ -174,6 +197,10 @@ class QuestionDefinitionController extends Controller
     }
 
     /**
+     * soft deletes question definition
+     * @param PollDefinition $pollDefinition
+     * @param QuestionDefinition $questionDefinition
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/poll-definition/{pollDefinition}/question-definition/{$questionDefinition}/inactivate", name="questionDefinition_inactivate")
      * @Security("has_role('ROLE_EMPLOYER')")
      */

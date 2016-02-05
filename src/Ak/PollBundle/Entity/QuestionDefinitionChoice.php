@@ -6,13 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * QuestionDefinition
+ * QuestionDefinition - represents question_definition table for questions with predefined answers
  *
  * @ORM\Entity()
+ *
  */
 abstract class QuestionDefinitionChoice extends QuestionDefinition
 {
     /**
+     * stores option definition ids
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="OptionDefinitionChoice", mappedBy="questionDefinitionChoice", cascade={"persist"})
@@ -20,6 +22,7 @@ abstract class QuestionDefinitionChoice extends QuestionDefinition
     protected $optionsDefinitionsChoice;
 
     /**
+     * stores information about maximum number of choices the respondent can choose
      * @var int|null
      *
      * @ORM\Column(name="max_choices", type="integer", nullable=true)
@@ -28,7 +31,7 @@ abstract class QuestionDefinitionChoice extends QuestionDefinition
 
 
     /**
-     *
+     * constructor - initializes optionDefinitionChoice collection
      */
     public function __construct()
     {

@@ -12,17 +12,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * OptionDefinitionOpen
+ * OptionDefinitionOpen - represents option_definition table in database, represents records for open questions
  *
  * @ORM\Entity()
  */
 class OptionDefinitionOpen extends OptionDefinition
 {
     /**
+     * stores question definition id
      * @var QuestionDefinition
      *
      * @ORM\OneToOne(targetEntity="QuestionDefinitionOpen", inversedBy="optionDefinitionOpen")
      * @ORM\JoinColumn(name="question_definition_open_id", referencedColumnName="id")
+     *
      */
     protected $questionDefinitionOpen;
 

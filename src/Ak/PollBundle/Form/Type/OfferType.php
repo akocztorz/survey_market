@@ -14,12 +14,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
 /**
- * Class OfferType
+ * Class OfferType - creates the Offer form
  * @package Ak\PollBundle\Form\Type
  */
 class OfferType extends AbstractType
 {
     /**
+     * builds an Offer form
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -40,6 +41,7 @@ class OfferType extends AbstractType
     }
 
     /**
+     * returns a form name
      * @return string
      */
     public function getName()
@@ -48,6 +50,7 @@ class OfferType extends AbstractType
     }
 
     /**
+     * specifies the base class for the form
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)

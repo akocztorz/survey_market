@@ -8,10 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Answer
+ * Answer - represents Answer table in a database
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ak\PollBundle\Entity\AnswerRepository")
+ *
  */
 class Answer
 {
@@ -27,6 +28,7 @@ class Answer
     private $id;
 
     /**
+     * stores information if option definition was chosen by the respondent
      * @var bool
      *
      * @ORM\Column(name="checked", type="boolean", nullable=true)
@@ -34,6 +36,7 @@ class Answer
     private $checked;
 
     /**
+     * stores the text response for a question
      * @var string
      *
      * @ORM\Column(name="free_text", type="text", nullable=true)
@@ -42,18 +45,22 @@ class Answer
     private $freeText;
 
     /**
-     * * @var Poll
+     * stores poll id
+     * @var Poll
      *
      * @ORM\ManyToOne(targetEntity="Poll", inversedBy="answers")
      * @ORM\JoinColumn(name="poll_id", referencedColumnName="id")
+     *
      */
     protected $poll;
 
     /**
-     * * @var OptionDefinition
+     * stores option definition id
+     * @var OptionDefinition
      *
      * @ORM\ManyToOne(targetEntity="OptionDefinition", inversedBy="answers")
      * @ORM\JoinColumn(name="option_definition_id", referencedColumnName="id")
+     *
      */
     protected $optionDefinition;
 

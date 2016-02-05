@@ -12,12 +12,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+
 /**
- * Class PollDefinitionType
+ * Class PollDefinitionType - creates the PollDefinition form
+ * @package Ak\PollBundle\Form\Type
  */
 class PollDefinitionType extends AbstractType
 {
     /**
+     * builds a PollDefinition form
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -29,6 +32,7 @@ class PollDefinitionType extends AbstractType
     }
 
     /**
+     * returns a form name
      * @return string
      */
     public function getName()
@@ -37,6 +41,7 @@ class PollDefinitionType extends AbstractType
     }
 
     /**
+     * specifies the base class for the form
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)

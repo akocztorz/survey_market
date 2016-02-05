@@ -17,7 +17,7 @@ use Ak\PollBundle\Validator\Constraints as AkAssert;
 
 
 /**
- * Class Question
+ * Class Question - represents a question and persists the answer to Answer table
  * @package Ak\PollBundle\Entity
  *
  * @AkAssert\QuestionClass
@@ -25,21 +25,25 @@ use Ak\PollBundle\Validator\Constraints as AkAssert;
 class Question
 {
     /**
+     * stores a poll instance
      * @var Poll
      */
     private $poll;
 
     /**
+     * stores a questionDefinition instance
      * @var QuestionDefinition
      */
     private $questionDefinition;
 
     /**
+     * stores the EntityManager
      * @var EntityManager
      */
     private $em;
 
     /**
+     * constructor - sets $this->em value
      * @param EntityManager $em
      */
     public function __construct(EntityManager $em)
@@ -81,6 +85,7 @@ class Question
     }
 
     /**
+     * magic method - gets an Answer property
      * @param $aID
      * @return Answer
      * @throws \Exception
@@ -122,17 +127,6 @@ class Question
                         $answer->setOptionDefinition($optionDefinition);
                         return $answer;
                     }
-//                    foreach($answers as $an){
-//                        if($an->getOptionDefinition()->getId() != $id ) {
-//                            $answer= new Answer();
-//                            $answer->setPoll($this->poll);
-//                            $answer->setOptionDefinition($optionDefinition);
-//                        }
-//                        else{
-//                            $answer = $an;
-//                        }
-//                        return $answer;
-//                    }
                 }
             }
         }
@@ -141,6 +135,7 @@ class Question
     }
 
     /**
+     * magic method - sets and Answer property
      * @param $aID
      * @param Answer $answer
      */

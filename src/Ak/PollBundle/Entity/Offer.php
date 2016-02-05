@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * Offer
+ * Offer - represents the Offer table in database
  *
  * @ORM\Entity(repositoryClass="Ak\PollBundle\Entity\OfferRepository")
  */
@@ -37,6 +37,7 @@ class Offer
     private $id;
 
     /**
+     * stores offer name
      * @var string
      *
      * @ORM\Column(name="offer_name", type="text")
@@ -44,6 +45,7 @@ class Offer
     private $offerName;
 
     /**
+     * stores polls quantity employer needs to be conducted
      * @var integer
      *
      * @ORM\Column(name="quantity", type="integer")
@@ -52,6 +54,7 @@ class Offer
 
 
     /**
+     * stores minimum polls quantity single pollster can accept
      * @var integer
      *
      * @ORM\Column(name="min_quantity", type="integer")
@@ -59,6 +62,7 @@ class Offer
     private $minQuantity;
 
     /**
+     * stores a price per poll conducted
      * @var string
      *
      * @ORM\column(name="price", type="decimal", precision=4, scale=2)
@@ -67,6 +71,7 @@ class Offer
 
 
     /**
+     * stores information about a due date
      * @var \DateTime
      *
      * @ORM\Column(name="due_date", type="datetime")
@@ -76,6 +81,7 @@ class Offer
     private $dueDate = null;
 
     /**
+     * stores information whether the offer was sealed by it's creator
      * @var boolean
      *
      * @ORM\Column(name="sealed", type="boolean")
@@ -84,6 +90,7 @@ class Offer
 
 
     /**
+     * stores poll definition number
      * @var PollDefinition
      *
      * @ORM\ManyToOne(targetEntity="PollDefinition", inversedBy="offers")
@@ -92,10 +99,18 @@ class Offer
     protected $pollDefinition;
 
     /**
+     * stores collection of deals created for the offer
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Deal", mappedBy="offer")
      */
     protected $deals;
+
+    /**
+     * constructor -initializes pollDefinition ArrayCollection
+     */
+    public function __construct(){
+        $this->pollDefinition = new ArrayCollection();
+    }
 
 
     /**

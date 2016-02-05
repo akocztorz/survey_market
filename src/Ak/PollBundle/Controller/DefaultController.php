@@ -8,6 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * Class DefaultController - displayes the homepage
+ * @package Ak\PollBundle\Controller
+ */
 class DefaultController extends Controller
 {
 
@@ -21,6 +25,9 @@ class DefaultController extends Controller
     }
 
     /**
+     * displayes the homepage
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)

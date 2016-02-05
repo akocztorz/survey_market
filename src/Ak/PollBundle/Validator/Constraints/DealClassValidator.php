@@ -17,6 +17,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 
 /**
+ * validates the data coming from the Deal form
  * Class DealClassValidator
  * @package Ak\PollBundle\Validator\Constraints
  */class DealClassValidator extends ConstraintValidator

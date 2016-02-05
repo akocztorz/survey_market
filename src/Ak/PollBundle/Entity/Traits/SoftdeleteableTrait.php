@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * Class SoftdeleteableTrait
+ * Class SoftdeleteableTrait - adds inactivated field to the database table
  * @package Ak\PollBundle\Entity\Traits
  *
  * @Gedmo\SoftDeleteable(fieldName="inactivated", timeAware=false)
@@ -22,6 +22,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 trait SoftdeleteableTrait
 {
     /**
+     * stores information whether the record was inactivated
      * @var bool $inactivated
      *
      * @ORM\Column(name="inactivated",  type="boolean" , nullable=true)

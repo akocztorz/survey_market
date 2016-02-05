@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Ak\PollBundle\Validator\Constraints as AkAssert;
 
 /**
- * Deal
+ * Deal - represents the Deal table in database
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ak\PollBundle\Entity\DealRepository")
@@ -29,6 +29,7 @@ class Deal
     private $id;
 
     /**
+     * stores id of a user who accepted an offer
      * @var User
      * @ORM\ManyToOne(targetEntity="User", inversedBy="deals")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -36,6 +37,7 @@ class Deal
     private $user;
 
     /**
+     * stores accepted offer id
      * @var Offer
      * @ORM\ManyToOne(targetEntity="Offer", inversedBy="deals")
      * @ORM\JoinColumn(name="offer_id", referencedColumnName="id")
@@ -44,6 +46,7 @@ class Deal
 
 
     /**
+     * stores information about number of polls to be conducted
      * @var integer
      *
      * @ORM\Column(name="quantity", type="integer")
@@ -51,14 +54,16 @@ class Deal
     private $quantity;
 
     /**
+     * stores ids of polls created for the deal
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Poll", mappedBy="deal")
+     *
      */
     protected $polls;
 
     /**
-     *
+     * constructor initializes polls ArrayCollection
      */
     public function __construct()
     {

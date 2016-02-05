@@ -15,12 +15,13 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class SearchType
+ * Class SearchType - creates the Search form for PollDefinition
  * @package Ak\PollBundle\Form\Type
  */
 class SearchType extends AbstractType
 {
     /**
+     * builds a Search form
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -34,6 +35,7 @@ class SearchType extends AbstractType
     }
 
     /**
+     * returns a form name
      * @return string
      */
     public function getName()

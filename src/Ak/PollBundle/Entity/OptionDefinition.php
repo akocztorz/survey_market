@@ -2,11 +2,12 @@
 
 namespace Ak\PollBundle\Entity;
 
+use Ak\PollBundle\Entity\Traits\SoftdeleteableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * OptionDefinition
+ * OptionDefinition - represents option_definition table in database
  *
  * @ORM\Entity(repositoryClass="Ak\PollBundle\Entity\OptionDefinitionRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
@@ -15,9 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
  *   "response_open" = "OptionDefinitionOpen",
  *   "response_choice" = "OptionDefinitionChoice",
  * })
+ *
  */
 abstract class OptionDefinition
 {
+    use SoftdeleteableTrait;
     /**
      * @var integer
      *
@@ -28,6 +31,7 @@ abstract class OptionDefinition
     private $id;
 
     /**
+     * stores a response option
      * @var string
      *
      * @ORM\Column(name="response", type="text")
@@ -35,6 +39,7 @@ abstract class OptionDefinition
     private $response;
 
     /**
+     * stores information whether the option should have free text window available
      * @var bool
      *
      * @ORM\Column(name="free_text", type="boolean", nullable=false)
@@ -42,6 +47,7 @@ abstract class OptionDefinition
     protected $freeText = false;
 
     /**
+     * stores answers collection
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="optionDefinition")
@@ -49,7 +55,7 @@ abstract class OptionDefinition
     protected $answers;
 
     /**
-     *
+     * constructor - initializes answer array collection
      */
     public function __construct()
     {

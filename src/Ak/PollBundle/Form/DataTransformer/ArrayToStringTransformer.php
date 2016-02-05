@@ -13,12 +13,13 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
- * Class ArrayToStringTransformer
+ * Class ArrayToStringTransformer - data transformer, converts an array into a string, converts a string into an array
  * @package Ak\PollBundle\Form\DataTransformer
  */
 class ArrayToStringTransformer implements DataTransformerInterface
 {
     /**
+     * transforms a string into an array
      * @param string $string
      * @return array
      */
@@ -29,7 +30,7 @@ class ArrayToStringTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms an array  to a string.
+     * transforms an array  to a string.
      * @param array $array
      * @return string
      */

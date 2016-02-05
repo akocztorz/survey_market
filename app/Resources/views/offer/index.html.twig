@@ -30,8 +30,6 @@
                         {% if not offer.sealed and is_granted('ROLE_EMPLOYER')%}
                             <a class="btn btn-default" href="{{ path('offer_edit', {'id': offer.id}) }}" role="button">Edytuj</a>
                             <a class="btn btn-default" href="{{ path('offer_seal', {'offer': offer.id}) }}" role="button">Zatwierdź</a>
-                        {% endif %}
-                        {% if is_granted('ROLE_EMPLOYER')%}
                             <a class="btn btn-default" href="{{ path('offer_inactivate', {'offer': offer.id}) }}" role="button">Usuń</a>
                         {% endif %}
                         {#<a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do pytań</a>#}

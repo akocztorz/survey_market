@@ -2,28 +2,39 @@
 
 {% block contents %}
 
-    <h1>Definicje Ankiet</h1>
+    <h1>Definicje ankiet</h1>
     {{ form(form) }}
     <table class="table table-striped">
         <tbody>
             <tr>
                 <th>Nazwa</th>
                 {#<th>Ilość ofert</th>#}
+                <th>Stworzono</th>
+                <th>Zmieniono</th>
                 <th></th>
+                {#<th>Stworzona przez</th>#}
             </tr>
+
             {% for pollDefinition in pollDefinitionList %}
-                {% if not (pollDefinition.inactivated) %}
+                {% set sealed = false %}
+                {% if not (pollDefinition.inactivated) and pollDefinition.user.id == app.user.id %}
                     <tr>
                         <td>{{ pollDefinition.name }}</td>
+                        <td>{{ pollDefinition.created|date('Y-m-d H:i') }}</td>
+                        <td>{{ pollDefinition.updated|date('Y-m-d H:i') }}</td>
+                        {#<td>{{ pollDefinition.user.username }}</td>#}
                         <td>
                             <a class="btn btn-default" href="{{ path('pollDefinition_show', {'id': pollDefinition.id}) }}" role="button">Wyświetl</a>
                             {% for offer in pollDefinition.offers %}
-                                {% if offer.deals.count == 0 %}
-                                    <a class="btn btn-default" href="{{ path('pollDefinition_edit', {'id': pollDefinition.id}) }}" role="button">Edytuj</a>
+                                {% if (offer.sealed is defined) and offer.sealed %}
+                                    {% set sealed = true %}
                                 {% endif %}
                             {% endfor %}
+                            {% if not sealed %}
+                                <a class="btn btn-default" href="{{ path('pollDefinition_edit', {'id': pollDefinition.id}) }}" role="button">Edytuj</a>
+                                <a class="btn btn-default" href="{{ path('pollDefinition_inactivate', {'pollDefinition': pollDefinition.id}) }}" role="button">Usuń</a>
+                            {% endif %}
                             <a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do pytań</a>
-                            <a class="btn btn-default" href="{{ path('pollDefinition_inactivate', {'pollDefinition': pollDefinition.id}) }}" role="button">Usuń</a>
                             <a class="btn btn-default" href="{{ path('show_for_pollDefinition_offer', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do ofert</a>
                             <a class="btn btn-default" href="{{ path('offer_create', {'pollDefinition': pollDefinition.id}) }}" role="button">Dodaj ofertę</a>
                             <a class="btn btn-default" href="{{ path('poll', {'pollDefinition': pollDefinition.id}) }}" role="button">Przejdź do ankiet</a>
@@ -33,6 +44,6 @@
             {% endfor %}
         </tbody>
     </table>
-    <a class="btn btn-default" href="{{ path('pollDefinition_create') }}" role="button">Dodaj</a>
+    <a class="btn btn-default" href="{{ path('pollDefinition_create', {'user': app.user.id }) }}" role="button">Dodaj</a>
 
 {% endblock %}

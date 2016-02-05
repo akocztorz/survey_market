@@ -12,13 +12,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * QuestionDefinitionOpen
+ * QuestionDefinitionOpen - represents question_definition table, represents open questions
  *
  * @ORM\Entity()
  */
 class QuestionDefinitionOpen extends QuestionDefinition
 {
     /**
+     * stores option definition id
      * @var OptionDefinition
      *
      * @ORM\OneToOne(targetEntity="OptionDefinitionOpen", mappedBy="questionDefinitionOpen", cascade={"persist"})
@@ -27,7 +28,7 @@ class QuestionDefinitionOpen extends QuestionDefinition
 
 
     /**
-     *
+     * constructor - initializes new OptionDefinitionOpen entity and sets $this->optionDefinitionOpen with it
      */
     public function __construct(){
         $entity = new OptionDefinitionOpen();

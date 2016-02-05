@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Metadata\Tests\Driver\Fixture\A\A;
 
 /**
- * Poll
+ * Poll - represents poll table in database
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ak\PollBundle\Entity\PollRepository")
@@ -27,6 +27,7 @@ class Poll
     private $id;
 
     /**
+     * stores poll definition id
      * @var PollDefinition
      *
      * @ORM\ManyToOne(targetEntity="PollDefinition", inversedBy="polls")
@@ -35,6 +36,7 @@ class Poll
     protected $pollDefinition;
 
     /**
+     * stores a collection of answers
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="poll", cascade={"persist"})
@@ -42,6 +44,7 @@ class Poll
     protected $answers;
 
     /**
+     * stores information if all questions of the poll were responded
      * @var bool
      *
      * @ORM\Column(name="completed", type="boolean", nullable=true)
@@ -49,6 +52,7 @@ class Poll
     private $completed;
 
     /**
+     * stores information about a last answered question
      * @var integer;
      *
      * @ORM\Column(name="last_answered_question", type="integer")
@@ -56,6 +60,7 @@ class Poll
     private $lastAnsweredQuestion;
 
     /**
+     * stores deal id
      * @var Deal
      *
      * @ORM\ManyToOne(targetEntity="Deal", inversedBy="polls")
@@ -64,7 +69,8 @@ class Poll
     private $deal;
 
     /**
-     *
+     *constructor
+     * initializes answer collection
      */
     public function __construct()
     {

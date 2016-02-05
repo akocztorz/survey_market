@@ -12,9 +12,14 @@ namespace Ak\PollBundle\Twig;
 use Ak\PollBundle\Entity\QuestionDefinition;
 use Ak\PollBundle\Entity\QuestionDefinitionOpen;
 
+/**
+ * Class HasEditableOptionsExtension - Twig filter , checks whether the question definition is a question with predefined answers
+ * @package Ak\PollBundle\Twig
+ */
 class HasEditableOptionsExtension extends \Twig_Extension
 {
     /**
+     * Twig filter
      * @return array
      */
     public function getFilters()
@@ -25,6 +30,7 @@ class HasEditableOptionsExtension extends \Twig_Extension
     }
 
     /**
+     * checks if question has predefined answers
      * @param QuestionDefinition $questionDefinition
      * @return bool
      */
@@ -38,6 +44,7 @@ class HasEditableOptionsExtension extends \Twig_Extension
     }
 
     /**
+     * returns filter name
      * @return string
      */
     public function getName()

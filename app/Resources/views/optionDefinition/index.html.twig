@@ -2,6 +2,14 @@
 
 {% block contents %}
     {% if (questionDefinition|hasEditableOptions) %}
+        {% set sealed = false %}
+        {% for optionDefinition in optionDefinitionList %}
+            {% for offer in optionDefinition.questionDefinition.pollDefinition.offers %}
+                {% if offer.sealed %}
+                    {% set sealed = true %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
         <h1>Możliwe odpowiedzi na pytanie : {{ questionDefinition.question }}</h1>
         <table class="table table-striped">
             <tbody>
@@ -11,6 +19,7 @@
                 <th></th>
             </tr>
             {% for optionDefinition in optionDefinitionList %}
+                {% if not optionDefinition.inactivated %}
                     <tr>
                         <td>{{ optionDefinition.response }}</td>
                         <td>
@@ -22,16 +31,21 @@
                         </td>
                         <td>
                             <a class="btn btn-default" href="{{ path('optionDefinition_show', {'questionDefinition': questionDefinition.id, 'id' : optionDefinition.id, 'questionDefinitionType' : questionDefinition|questionDefinitionType}) }}" role="button">Wyświetl</a>
-                            <a class="btn btn-default" href="{{ path('optionDefinition_edit', {'questionDefinition': questionDefinition.id, 'id' : optionDefinition.id, 'questionDefinitionType' : questionDefinition|questionDefinitionType }) }}" role="button">Edytuj</a>
+                            {% if not sealed %}
+                                <a class="btn btn-default" href="{{ path('optionDefinition_edit', {'questionDefinition': questionDefinition.id, 'id' : optionDefinition.id, 'questionDefinitionType' : questionDefinition|questionDefinitionType }) }}" role="button">Edytuj</a>
+                                <a class="btn btn-default" href="{{ path('optionDefinition_inactivate', {'questionDefinition': questionDefinition.id, 'id' : optionDefinition.id, 'questionDefinitionType' : questionDefinition|questionDefinitionType }) }}" role="button">Usuń</a>
+                            {% endif %}
                             {#<button class="btn btn-default" type="submit">Usuń</button>#}
                         </td>
                     </tr>
-
+                {% endif %}
             {% endfor %}
             </tbody>
         </table>
-        <a class="btn btn-default" href="{{ path('optionDefinition_create' , {'questionDefinition' : questionDefinition.id})}}" role="button">Dodaj</a>
-    {% else %}
+        {% if not sealed %}
+            <a class="btn btn-default" href="{{ path('optionDefinition_create' , {'questionDefinition' : questionDefinition.id})}}" role="button">Dodaj</a>
+        {% endif %}
+        {% else %}
         <h1>Wybrane pytanie jest pytaniem otwartym i nie posiada predefiniowanych odpowiedzi</h1>
     {% endif %}
     <a class="btn btn-default" href="{{ path('questionDefinition', {'pollDefinition': pollDefinition.id }) }}" role="button">Powrót</a>

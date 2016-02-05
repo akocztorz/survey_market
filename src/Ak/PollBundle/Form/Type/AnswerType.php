@@ -20,21 +20,19 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class AnswerType
+ * Class AnswerType - creates an Answer form
  * @package Ak\PollBundle\Form\Type
  */
 class AnswerType extends AbstractType
 {
+
     /**
-     * {@inheritdoc}
+     * builds an Answer form
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-//        $builder
-//            ->add('freeText', null)
-//
-//        ;
-
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             /** @var Answer $answer */
@@ -59,6 +57,7 @@ class AnswerType extends AbstractType
 
 
     /**
+     * returns a form name
      * @return string
      */
     public function getName()
@@ -67,6 +66,7 @@ class AnswerType extends AbstractType
     }
 
     /**
+     * specifies the base class for the form
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)

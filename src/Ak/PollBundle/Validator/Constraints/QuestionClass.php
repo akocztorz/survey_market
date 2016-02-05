@@ -12,10 +12,15 @@ namespace Ak\PollBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 
 /**
+ * Question Validation Class
  * @Annotation
  */
 class QuestionClass extends Constraint
 {
+    /**
+     * error message
+     * @var string
+     */
     public $message = 'Niepoprawnie wypełnione pytanie';
 
     /**

@@ -1,7 +1,15 @@
 {% extends 'page.html.twig' %}
 
 {% block contents %}
-    <h1>Definicje Pytań dla ankiety : {{ pollDefinition.name }}</h1>
+    <h1>Definicje pytań dla ankiety : {{ pollDefinition.name }}</h1>
+    {% set sealed = false %}
+    {% for questionDefinition in questionDefinitionList %}
+        {% for offer in questionDefinition.pollDefinition.offers %}
+            {% if offer.sealed %}
+                {% set sealed = true %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
     <table class="table table-striped">
         <tbody>
             <tr>
@@ -18,8 +26,10 @@
                         <td>{{ questionDefinition|questionDefinitionType }}</td>
                         <td>
                             <a class="btn btn-default" href="{{ path('questionDefinition_show', {'pollDefinition': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Wyświetl</a>
-                            <a class="btn btn-default" href="{{ path('questionDefinition_edit', {'pollDefinition': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Edytuj</a>
-                            <a class="btn btn-default" href="{{ path('questionDefinition_inactivate', {'pollDefinition': pollDefinition.id, 'questionDefinition': questionDefinition.id}) }}" role="button">Usuń</a>
+                            {% if not sealed %}
+                                <a class="btn btn-default" href="{{ path('questionDefinition_edit', {'pollDefinition': pollDefinition.id, 'id' : questionDefinition.id}) }}" role="button">Edytuj</a>
+                                <a class="btn btn-default" href="{{ path('questionDefinition_inactivate', {'pollDefinition': pollDefinition.id, 'questionDefinition': questionDefinition.id}) }}" role="button">Usuń</a>
+                            {% endif %}
                             {% if(questionDefinition|hasEditableOptions) %}
                                 <a class="btn btn-default" href="{{ path('optionDefinition', {'questionDefinition': questionDefinition.id }) }}" role="button">Przejdź do mozliwych odpowiedzi</a>
                             {% endif %}
@@ -29,12 +39,14 @@
             {% endfor %}
         </tbody>
     </table>
-    <h2>Dodaj pytanie:</h2>
-    <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'open'}) }}" role="button">otwarte</a>
-    <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'single_choice'}) }}" role="button">jednokrotnego wyboru</a>
-    <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'multiple_choice'}) }}" role="button">wielokrotnego wyboru</a>
-    <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'restricted_choice'}) }}" role="button">wielokrotnego wyboru z ograniczoną liczbą odpowiedzi</a>
-    <h2></h2>
+    {% if not sealed %}
+        <h2>Dodaj pytanie:</h2>
+        <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'open'}) }}" role="button">otwarte</a>
+        <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'single_choice'}) }}" role="button">jednokrotnego wyboru</a>
+        <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'multiple_choice'}) }}" role="button">wielokrotnego wyboru</a>
+        <a class="btn btn-default" href="{{ path('questionDefinition_create', {'pollDefinition': pollDefinition.id, 'questionDefinitionType':'restricted_choice'}) }}" role="button">wielokrotnego wyboru z ograniczoną liczbą odpowiedzi</a>
+        <h2></h2>
+    {% endif %}
     <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Powrót</a>
 
 {% endblock %}

@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * pollDefinition
+ * pollDefinition - represents poll_definition table in database
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ak\PollBundle\Entity\PollDefinitionRepository")
@@ -31,6 +31,7 @@ class PollDefinition
     private $id;
 
     /**
+     * stores a poll definition name
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -38,6 +39,7 @@ class PollDefinition
     private $name;
 
     /**
+     * stores a questionDefinitions collection
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="QuestionDefinition", mappedBy="pollDefinition")
@@ -45,6 +47,7 @@ class PollDefinition
     private $questionsDefinitions;
 
     /**
+     * stores polls collection
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Poll", mappedBy="pollDefinition")
@@ -52,6 +55,7 @@ class PollDefinition
     protected $polls;
 
     /**
+     * stores offer collection
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Offer", mappedBy="pollDefinition")
@@ -59,7 +63,16 @@ class PollDefinition
     protected $offers;
 
     /**
-     *
+     * stores id of a user who created the poll definition
+     * @var User
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="pollDefinitions")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+
+    /**
+     *constructor -initializes questionDefinitions, polls and offers collections
      */
     public function __construct()
     {
@@ -138,6 +151,22 @@ class PollDefinition
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
 

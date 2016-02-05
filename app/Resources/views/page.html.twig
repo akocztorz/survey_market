@@ -13,18 +13,25 @@
                     <div class="container-fluid">
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="{{ path('surveyMarket') }}">Strona główna</a>
-                            {% if is_granted('ROLE_EMPLOYER')%}
-                                <a class="navbar-brand" href="{{ path('pollDefinition') }}">Definicje Ankiet</a>
-                            {% endif %}
-                            {% if is_granted('ROLE_POLLSTER') or is_granted('ROLE_EMPLOYER') %}
-                                <a class="navbar-brand" href="{{ path('offer') }}">Oferty</a>
-                            {% endif %}
+                            <button class="navbar-toggle" type="button"  data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="true">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class = navbar-brand href="{{ path('surveyMarket') }}">Strona główna</a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <nav id="bs-navbar" class="navbar-collapse collapse in" aria-expanded="true" >
+                        {#<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >#}
                             <ul class="nav navbar-nav">
+                                {% if is_granted('ROLE_EMPLOYER')%}
+                                    <li><a href="{{ path('pollDefinition') }}">Definicje Ankiet</a></li>
+                                {% endif %}
+                                {% if is_granted('ROLE_POLLSTER') or is_granted('ROLE_EMPLOYER') %}
+                                    <li><a href="{{ path('offer') }}">Oferty</a></li>
+                                {% endif %}
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                     <li><a href="{{ path('fos_user_security_logout') }}">Wyloguj</a></li>
                                 {% else %}
@@ -32,7 +39,8 @@
                                     <li><a href="{{ path('fos_user_security_login') }}">Logowanie</a></li>
                                 {% endif %}
                             </ul>
-                        </div><!-- /.navbar-collapse -->
+                        </nav>
+                        {#</div><!-- /.navbar-collapse -->#}
                     </div><!-- /.container-fluid -->
                 </nav>
             </div>

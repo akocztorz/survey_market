@@ -11,13 +11,25 @@ namespace Ak\PollBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
+/** Deal Validation Class
  * @Annotation
  */
 class DealClass extends Constraint
 {
+    /**
+     * error message
+     * @var string
+     */
     public $message0 = 'akceptowana ilość ankiet nie może być mniejsza od minimalnej ilości ani większa od zamawianej ilości określonej w ofercie';
+    /**
+     * error message
+     * @var string
+     */
     public $message1 = 'zaakceptowana ilość musi pozwolić następnemu użytkownikowi na zaakceptowanie conajmniej minimalnej ilości';
+    /**
+     * error message
+     * @var string
+     */
     public $message2 = 'wszystkie pozostałe ankiety muszą zostać zaakceptowane' ;
 
 

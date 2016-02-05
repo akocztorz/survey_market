@@ -17,12 +17,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Tests\Fixtures\AnnotatedClasses\AbstractClass;
 
 /**
- * Class OptionDefinitionType
+ * Class OptionDefinitionType - creates the OptionDefinition form
  * @package Ak\PollBundle\Form\Type
  */
 class OptionDefinitionType extends AbstractType
 {
     /**
+     * builds an OptionDefinition form
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -36,6 +37,7 @@ class OptionDefinitionType extends AbstractType
     }
 
     /**
+     * returns a form name
      * @return string
      */
     public function getName()
@@ -44,6 +46,7 @@ class OptionDefinitionType extends AbstractType
     }
 
     /**
+     * specifies the base class for the form
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)

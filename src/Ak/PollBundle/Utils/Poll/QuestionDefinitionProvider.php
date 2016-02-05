@@ -12,15 +12,22 @@ namespace Ak\PollBundle\Utils\Poll;
 use Ak\PollBundle\Entity\Poll;
 use Ak\PollBundle\Entity\QuestionDefinition;
 
+/**
+ * Class QuestionDefinitionProvider - provides a single question definition
+ * @package Ak\PollBundle\Utils\Poll
+ */
 class QuestionDefinitionProvider
 {
     /**
+     * stores questionDefinitionsProvider object
      * @var QuestionDefinitionsProvider
      */
     private $questionDefinitionsProvider;
 
+
     /**
-     *
+     * constructor sets $this->questionDefinitionsProvider
+     * @param QuestionDefinitionsProvider $questionDefinitionsProvider
      */
     public function __construct(QuestionDefinitionsProvider $questionDefinitionsProvider)
     {
@@ -28,6 +35,7 @@ class QuestionDefinitionProvider
     }
 
     /**
+     * returns questionDefinition
      * @param Poll $poll
      * @param $position
      * @return QuestionDefinition

@@ -1,10 +1,11 @@
 {% extends 'page.html.twig' %}
 
 {% block contents %}
-    <h1>Ankiety dla Definicji : {{ pollDefinition.name }}</h1>
+    <h1>Ankiety dla definicji : {{ pollDefinition.name }}</h1>
     <table class="table table-striped">
         <tbody>
         <tr>
+            <th>Numer</th>
             <th>Utworzono</th>
             <th>Zmodyfikowano</th>
             <th>Wypełniona</th>
@@ -31,6 +32,7 @@
             {% endfor %}
         {% endif %}
         {% set id = null %}
+
         {% if is_granted('ROLE_POLLSTER') %}
             {% for poll in pollList %}
                 {% if poll.deal.user.id is defined %}
@@ -61,12 +63,11 @@
                 {% endif %}
             {% endfor %}
         {% endif %}
-
         </tbody>
     </table>
     {% if is_granted('ROLE_POLLSTER') %}
         <a class="btn btn-default" href="{{ path('poll_create', {'pollDefinition':pollDefinition.id, 'user': app.user.id }) }}" role="button">Dodaj</a>
-        <a class="btn btn-default" href="{{ path('offer_show', {'id': id}) }}" role="button">Powrót</a>
+        <a class="btn btn-default" href="{{ path('offer') }}" role="button">Powrót</a>
     {% elseif is_granted('ROLE_EMPLOYER') %}
         <a class="btn btn-default" href="{{ path('pollDefinition') }}" role="button">Powrót</a>
     {% endif %}

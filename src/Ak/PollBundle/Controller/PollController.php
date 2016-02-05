@@ -21,17 +21,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * Class PollController
+ * Class PollController - allows to create a new poll and view all polls for specific poll definition
  * @package Ak\PollBundle\Controller
+ *
  */
 class PollController extends Controller
 {
     /**
-     * Lists all Poll entities.
-     *
+     * lists all Poll entities.
+     * @param PollDefinition $pollDefinition
+     * @return Response
+     * @throws \Exception
+     * @throws \Twig_Error
      * @Route("/poll/{pollDefinition}", name="poll")
      * @Security("has_role('ROLE_EMPLOYER') or has_role('ROLE_POLLSTER')")
-     *
      */
     public function indexAction(PollDefinition $pollDefinition)
     {
@@ -52,12 +55,15 @@ class PollController extends Controller
     }
 
     /**
+     * creates new Poll entity
      * @param Request $request
      * @param PollDefinition $pollDefinition
+     * @param User $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @Route("/poll/{pollDefinition}/create/{user}", name="poll_create")
      * @Security("has_role('ROLE_POLLSTER')")
+     *
      */
     public function createAction(Request $request, PollDefinition  $pollDefinition, User $user)
     {

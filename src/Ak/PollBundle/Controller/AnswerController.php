@@ -21,15 +21,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * Class AnswerController
+ * Class AnswerController -allows to fill in the poll and view it
  * @package Ak\PollBundle\Controller
  */
 class AnswerController extends Controller
 {
 
     /**
+     * fills in the poll
+     *
+     * @param Request $request
+     * @param Poll $poll
+     * @param $position
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @Route("/poll/{poll}/answer/{position}", name="answer")
      * @Security("has_role('ROLE_POLLSTER')")
+     *
      */
     public function fillInAction(Request $request, Poll $poll, $position)
     {
@@ -79,10 +86,14 @@ class AnswerController extends Controller
     }
 
     /**
+     * informs that the poll was completed
+     * @param Poll $poll
+     * @return Response
+     * @throws \Exception
+     * @throws \Twig_Error
      * @Route("/poll/{poll}/success" , name="poll_success")
      * @Method("GET")
      * @Security("has_role('ROLE_POLLSTER')")
-     *
      */
     public function successAction(Poll $poll)
     {
@@ -100,6 +111,11 @@ class AnswerController extends Controller
     }
 
     /**
+     * allows to view the poll
+     * @param Poll $poll
+     * @return Response
+     * @throws \Exception
+     * @throws \Twig_Error
      * @Route("poll/{poll}/show", name="poll_show")
      * @Security("has_role('ROLE_EMPLOYER') or has_role('ROLE_POLLSTER')")
      */

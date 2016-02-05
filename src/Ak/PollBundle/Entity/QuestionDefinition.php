@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * QuestionDefinition
+ * QuestionDefinition - represents question_definition table
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ak\PollBundle\Entity\QuestionDefinitionRepository")
@@ -36,6 +36,7 @@ abstract class QuestionDefinition
     protected $id;
 
     /**
+     * stores a position the question will have in a poll
      * @var integer
      *
      * @Gedmo\SortablePosition
@@ -44,6 +45,7 @@ abstract class QuestionDefinition
     protected $position;
 
     /**
+     * stores a question text
      * @var string
      *
      * @ORM\Column(name="question", type="text")
@@ -51,6 +53,7 @@ abstract class QuestionDefinition
     protected $question;
 
     /**
+     * stores poll definition id
      * @var PollDefinition
      *
      * @ORM\ManyToOne(targetEntity="PollDefinition", inversedBy="questionsDefinitions")

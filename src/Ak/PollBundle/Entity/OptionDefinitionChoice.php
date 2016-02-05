@@ -14,13 +14,14 @@ use phpDocumentor\Reflection\DocBlock\Tag\ReturnTag;
 use Symfony\Component\Form\Tests\Extension\Core\Type\RepeatedTypeTest;
 
 /**
- * OptionDefinitionOpen
+ * OptionDefinitionOpen - represents option_definition table in database, represents records for questions with predefined answers
  *
  * @ORM\Entity()
  */
 class OptionDefinitionChoice extends OptionDefinition
 {
     /**
+     * stores question definition id
      * @var QuestionDefinitionChoice
      *
      * @ORM\ManyToOne(targetEntity="QuestionDefinitionChoice", inversedBy="optionsDefinitionsChoice")

@@ -18,12 +18,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Tests\Fixtures\AnnotatedClasses\AbstractClass;
 
 /**
- * Class QuestionDefinitionType
+ * Class QuestionDefinitionType - creates the QuestionDefinition form
  * @package Ak\PollBundle\Form\Type
  */
 class QuestionDefinitionType extends AbstractType
 {
     /**
+     * builds QuestionDefinition form
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -31,7 +32,7 @@ class QuestionDefinitionType extends AbstractType
     {
         $builder
             ->add('question', null, array('label' => 'Pytanie'))
-            ->add('position', null, array('label' => 'Numer Pytania'))
+            ->add('position', null, array('label' => 'Numer pytania'))
 
         ;
 
@@ -50,6 +51,7 @@ class QuestionDefinitionType extends AbstractType
 
 
     /**
+     * returns a form name
      * @return string
      */
     public function getName()
@@ -58,6 +60,7 @@ class QuestionDefinitionType extends AbstractType
     }
 
     /**
+     * specifies the base class for the form
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)

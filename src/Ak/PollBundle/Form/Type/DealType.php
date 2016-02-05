@@ -14,13 +14,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class DealType
+ * Class DealType - creates the Deal form
  * @package Ak\PollBundle\Form\Type
  */
 class DealType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * builds a Deal form
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -30,6 +32,7 @@ class DealType extends AbstractType
     }
 
     /**
+     * returns a form name
      * @return string
      */
     public function getName()
@@ -38,6 +41,7 @@ class DealType extends AbstractType
     }
 
     /**
+     * specifies the base class for the form
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)

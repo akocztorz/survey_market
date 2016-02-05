@@ -14,13 +14,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class RegistrationType
+ * Class RegistrationType - creates the Registration form
  * @package Ak\PollBundle\Form\Type
  */
 class RegistrationType extends AbstractType
 {
+
     /**
-     * {@inheritdoc}
+     * builds a Registration form
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -28,7 +31,7 @@ class RegistrationType extends AbstractType
                 'choices' => array('ankieter' => 'ROLE_POLLSTER', 'zleceniodawca' => 'ROLE_EMPLOYER'),
                 'choices_as_values' => true,
                 'multiple' => false,
-                'label' => 'rola',
+                'label' => 'Rola',
             )
         );
 
@@ -36,6 +39,7 @@ class RegistrationType extends AbstractType
     }
 
     /**
+     * returns a form name
      * @return string
      */
     public function getParent()

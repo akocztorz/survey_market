@@ -25,17 +25,19 @@ use Ak\PollBundle\Entity\PollDefinition;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * Class OfferController
+ * Class OfferController - displayes all offers, offers for specific Poll Definition, one offer, adds, edits, seals, accepts and removes an offer
  * @package Ak\PollBundle\Controller
- *
  */
 class OfferController extends Controller
 {
     /**
+     * displayes all offers
      * @Route("/offer", name="offer")
      * @Method("GET")
      * @Security("has_role('ROLE_POLLSTER') or has_role('ROLE_EMPLOYER')")
-     *
+     * @return Response
+     * @throws \Exception
+     * @throws \Twig_Error
      */
     public function indexAction()
     {
@@ -55,9 +57,14 @@ class OfferController extends Controller
     }
 
     /**
+     * displayes offers for specific Poll Definition id
      * @Route("/{pollDefinition}/offer", name="show_for_pollDefinition_offer")
      * @Method("GET")
      * @Security("has_role('ROLE_EMPLOYER') or has_role('ROLE_POLLSTER')")
+     * @param PollDefinition $pollDefinition
+     * @return Response
+     * @throws \Exception
+     * @throws \Twig_Error
      */
     public function showForPollDefinitionAction(PollDefinition $pollDefinition)
     {
@@ -80,11 +87,12 @@ class OfferController extends Controller
 
 
     /**
-     * Creates a new Offer entity.
-     *
+     * creates a new Offer entity.
+     * @param Request $request
+     * @param PollDefinition $pollDefinition
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @Route("/offer/create/{pollDefinition}", name="offer_create")
      * @Security("has_role('ROLE_EMPLOYER')")
-     *
      */
     public function createAction(Request $request, PollDefinition  $pollDefinition)
     {
@@ -115,8 +123,11 @@ class OfferController extends Controller
     }
 
     /**
+     * displayes the offer
+     * @param $id
      * @Route("/offer/{id}/show", name="offer_show")
      * @Security("has_role('ROLE_EMPLOYER') or has_role('ROLE_POLLSTER')")
+     * @return Response
      */
     public function showAction($id)
     {
@@ -139,6 +150,10 @@ class OfferController extends Controller
     }
 
     /**
+     * edits an offer
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @Route("/offer/{id}/edit", name="offer_edit")
      * @Security("has_role('ROLE_EMPLOYER')")
      */
@@ -170,11 +185,11 @@ class OfferController extends Controller
     }
 
     /**
+     * soft deletes an offer
      * @Route("/offer/{offer}/inactivate", name="offer_inactivate")
      * @param Offer $offer
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Security("has_role('ROLE_EMPLOYER')")
-     *
      */
     public function inactivateAction(Offer $offer)
     {
@@ -187,6 +202,7 @@ class OfferController extends Controller
     }
 
     /**
+     * seals an offer (making it visible for the pollsters)
      * @Route("/offer/{offer}/seal", name="offer_seal")
      * @param Offer $offer
      * @Security("has_role('ROLE_EMPLOYER')")
@@ -195,19 +211,17 @@ class OfferController extends Controller
     public function sealAction(Offer $offer)
     {
         $em = $this->getDoctrine()->getManager();
-        if(count($offer->getPollDefinition()->getQuestionsDefinitions()) > 0){
             $offer->setSealed(true);
             $em->flush();
-        }
-//        else{
-//
-//        }
+
         return $this->redirect($this->generateUrl('offer', array('pollDefinition' => $offer->getPollDefinition()->getId())));
 
     }
 
     /**
+     * accepts an offer
      * @Route("/offer/{offer}/{user}/accept", name="offer_accept")
+     * @param Request $request
      * @param Offer $offer
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

@@ -26,15 +26,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 /**
- * Class OptionDefinitionController
+ * Class OptionDefinitionController -allows to view option definitions for specific question, allows to add, view, edit and remove option definition
  * @package Ak\PollBundle\Controller
  */
 class OptionDefinitionController extends Controller
 {
     /**
+     * displayes option definitions for specific question
      * @Route("/question-definition/{questionDefinition}/option-definition", name="optionDefinition")
      * @Method("GET")
      * @Security("has_role('ROLE_EMPLOYER')")
+     * @param $questionDefinition
+     * @return Response
+     * @throws \Exception
+     * @throws \Twig_Error
      */
     public function indexAction($questionDefinition)
     {
@@ -57,6 +62,10 @@ class OptionDefinitionController extends Controller
     }
 
     /**
+     * creates new OptionDefinition entity
+     * @param Request $request
+     * @param QuestionDefinition $questionDefinition
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @Route("/question-definition/{questionDefinition}/option-definition/create", name="optionDefinition_create")
      * @Security("has_role('ROLE_EMPLOYER')")
      */
@@ -94,6 +103,12 @@ class OptionDefinitionController extends Controller
     }
 
     /**
+     * displayes an option definition
+     * @param QuestionDefinition $questionDefinition
+     * @param $id
+     * @return Response
+     * @throws \Exception
+     * @throws \Twig_Error
      * @Route("/question-definition/{questionDefinition}/option-definition/{id}/show", name="optionDefinition_show")
      * @Security("has_role('ROLE_EMPLOYER')")
      */
@@ -116,6 +131,11 @@ class OptionDefinitionController extends Controller
     }
 
     /**
+     * edits an option definition
+     * @param Request $request
+     * @param QuestionDefinition $questionDefinition
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @Route("/question-definition/{questionDefinition}/option-definition/{id}/edit", name="optionDefinition_edit")
      * @Security("has_role('ROLE_EMPLOYER')")
      */
@@ -144,6 +164,26 @@ class OptionDefinitionController extends Controller
             'optionDefinition/form.html.twig',
             array('form' => $form->createView(),
             )
+        );
+
+    }
+
+    /**
+     * soft deletes of an optionDefinition
+     * @param OptionDefinition $optionDefinition
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/question-definition/{questionDefinition}/option-definition/{id}/inactivate", name="optionDefinition_inactivate")
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
+    public function inactivateAction(OptionDefinition $optionDefinition)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $optionDefinition->setInactivated(true);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('optionDefinition', array(
+            'questionDefinition' => $optionDefinition->getQuestionDefinition()->getId(),
+            'id' => $optionDefinition->getId(),))
         );
 
     }

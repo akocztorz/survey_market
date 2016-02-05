@@ -20,6 +20,7 @@ use Ak\PollBundle\Entity\QuestionDefinitionSingleChoice;
 class QuestionDefinitionTypeExtension extends \Twig_Extension
 {
     /**
+     * Twig filter
      * @return array
      */
     public function getFilters()
@@ -31,6 +32,7 @@ class QuestionDefinitionTypeExtension extends \Twig_Extension
 
 
     /**
+     * returns information about question type
      * @param QuestionDefinition $questionDefinition
      * @return string
      */
@@ -53,6 +55,7 @@ class QuestionDefinitionTypeExtension extends \Twig_Extension
     }
 
     /**
+     * returns filter name
      * @return string
      */
     public function getName()

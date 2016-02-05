@@ -18,13 +18,16 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class QuestionType
+ * Class QuestionType - creates the Question form
  * @package Ak\PollBundle\Form\Type
  */
 class QuestionType extends AbstractType
 {
+
     /**
-     * {@inheritdoc}
+     * builds a QuestionType form
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -41,6 +44,7 @@ class QuestionType extends AbstractType
 
 
     /**
+     * returns a form name
      * @return string
      */
     public function getName()
@@ -49,6 +53,7 @@ class QuestionType extends AbstractType
     }
 
     /**
+     * specifies the base class for the form
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)

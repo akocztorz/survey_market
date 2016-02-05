@@ -13,18 +13,21 @@ use Ak\PollBundle\Entity\Poll;
 use Ak\PollBundle\Entity\QuestionDefinitionRepository;
 
 /**
- * Class QuestionDefinitionsProvider
+ * Class QuestionDefinitionsProvider - provides a list of questionDefinitions
  * @package Ak\PollBundle\Utils\Poll
  */
 class QuestionDefinitionsProvider
 {
     /**
+     * stores instance of questionDefinitionRepository class
      * @var QuestionDefinitionRepository
      */
     private $questionDefinitionRepository;
 
+
     /**
-     *
+     * sets $this->questionDefinitionRepository
+     * @param QuestionDefinitionRepository $questionDefinitionRepository
      */
     public function __construct(QuestionDefinitionRepository $questionDefinitionRepository)
     {
@@ -33,6 +36,7 @@ class QuestionDefinitionsProvider
     }
 
     /**
+     * returns list of questionDefinitions
      * @param Poll $poll
      * @return array
      */
